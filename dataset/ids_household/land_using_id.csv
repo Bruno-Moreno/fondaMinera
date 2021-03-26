@@ -1,0 +1,13 @@
+value,id
+propio pagado,1
+propio pagándose,2
+propio compartido (pagado) con otras viviendas del sitio,3
+propio compartido (pagándose) con otras viviendas del sitio,4
+arrendado con contrato,5
+arrendado sin contrato,6
+cedido por servicio o trabajo,7
+cedido por familiar u otro,8
+usufructo (sílo uso y goce),9
+ocupación irregular (de hecho),10
+poseedor irregular,11
+sin dato,12

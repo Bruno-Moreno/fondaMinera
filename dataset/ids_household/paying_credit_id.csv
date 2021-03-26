@@ -1,0 +1,6 @@
+value,id
+"sí, está pagando al día sus dividendos",1
+"sí, está pagando con atraso sus dividendos",2
+"no está pagando, aunque tiene deuda pendiente",3
+"no está pagando, terminó de pagar",4
+sin dato,5

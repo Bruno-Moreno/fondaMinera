@@ -1,0 +1,8 @@
+value,id
+menos de 30 m2,1
+de 30 a 40 m2,2
+de 41 a 60 m2,3
+de 61 a 100 m2,4
+de 101 a 150 m2,5
+más de 150 m2,6
+no sabe,7

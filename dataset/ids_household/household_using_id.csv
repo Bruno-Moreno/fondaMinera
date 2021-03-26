@@ -1,0 +1,13 @@
+value,id
+propia pagada,1
+propia pagándose,2
+propia compartida (pagada) con otros hogares de la vivienda,3
+propia compartida (pagándose) con otros hogares de la vivienda,4
+arrendada con contrato,5
+arrendada sin contrato,6
+cedida por servicio o trabajo,7
+cedida por familiar u otro,8
+usufructo (sílo uso y goce),9
+ocupación irregular (de hecho),10
+poseedor irregular,11
+sin dato,12

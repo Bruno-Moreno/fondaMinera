@@ -1,0 +1,9 @@
+value,id
+"sí, de la red pública con medidor propio",1
+"sí, de la red pública con medidor compartido",2
+"sí, de la red pública sin medidor",3
+"sí, de un generador propio o comunitario",4
+"sí, a través de placa solar",5
+"sí, de otra fuente. especifique",6
+no dispone de energía eléctrica,7
+ns/nr,8

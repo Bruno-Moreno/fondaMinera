@@ -1,0 +1,10 @@
+value,id
+"sí, con wc conectado al alcantarillado",1
+"sí, con wc conectado a fosa séptica",2
+"sí, con letrina sanitaria conectada a pozo negro",3
+"sí, con cajón sobre pozo negro",4
+"sí, con cajón sobre acequia o canal",5
+"sí, con cajón conectado a otro sistema",6
+"sí, con ba?o químico dentro del sitio",7
+no dispone de sistema,8
+sin dato,9

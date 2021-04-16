@@ -3,41 +3,91 @@ title: "Hito 1"
 output: html_notebook
 ---
 
+**Integrantes: **
+
+* Nicolás Gatica
+
+* Cristóbal Igor
+
+* Nelson Moreno
+
+* Emilio Roa
+
+* Thomas Waldura 
+
+Para ver el repositorio del proyecto, la base de datos y análisis correspondiente, visitar [Github](https://github.com/Bruno-Moreno/fondaMinera).
+ 
 # Introducción
 
 ![](../img/casen.png)
 
-La Encuesta de Caracterización Socioeconómica Nacional, Casen, es realizada por el Ministerio de Desarrollo Social con el objetivo de disponer de información que permita:
+La Encuesta de Caracterización Socioeconómica Nacional CASEN, es realizada por el Ministerio de Desarrollo Social con el objetivo de disponer de información que permita:
 
-Conocer periódicamente la situación de los hogares y de la población, especialmente de aquella en situación de pobreza y de aquellos grupos definidos como prioritarios por la política social, con relación a aspectos demográficos, de educación, salud, vivienda, trabajo e ingresos. En particular, estimar la magnitud de la pobreza y la distribución del ingreso; identificar carencias y demandas de la población en las áreas señaladas; y evaluar las distintas brechas que separan a los diferentes segmentos sociales y ámbitos territoriales.
+1. Conocer periódicamente la situación de los hogares y de la población, especialmente de aquella en situación de pobreza y de aquellos grupos definidos como prioritarios por la política social, con relación a aspectos demográficos, de educación, salud, vivienda, trabajo e ingresos. En particular, estimar la magnitud de la pobreza y la distribución del ingreso; identificar carencias y demandas de la población en las áreas señaladas; y evaluar las distintas brechas que separan a los diferentes segmentos sociales y ámbitos territoriales.
 
-Evaluar el impacto de la política social: estimar la cobertura, la focalización y la distribución del gasto fiscal de los principales programas sociales de alcance nacional entre los hogares, según su nivel de ingreso, para evaluar el impacto de este gasto en el ingreso de los hogares y en la distribución del mismo.
+2. Evaluar el impacto de la política social: estimar la cobertura, la focalización y la distribución del gasto fiscal de los principales programas sociales de alcance nacional entre los hogares, según su nivel de ingreso, para evaluar el impacto de este gasto en el ingreso de los hogares y en la distribución del mismo.
 
 Su objeto de estudio son los hogares que habitan las viviendas particulares que se ubican en el territorio nacional, exceptuando algunas zonas muy alejadas o de difícil acceso, así como las personas que forman parte de esos hogares.
 
 Además del contexto nacional, la Encuesta Casen considera como dominios de estudio las regiones, y sus ámbitos urbano y rural.
 
-Para este proyecto trabajaremos con la base de datos dispuesta por CASEN y recuperada de [datachile.io](https://es.datachile.io/about/data). El objetivo de este proyecto será poder estudiar esta base de datos y extraer información útil acerca del contexto nacional a lo largo de los años en los ámbitos de ingresos, vivienda, salud y datos bancarios. Para esto y utilizando herramientas de minería de datos intentaremos caracterizar grupos socioeconómicos en base a estas dimensiones.
+Para este proyecto trabajaremos con la base de datos dispuesta por CASEN y recuperada de [datachile.io](https://es.datachile.io/about/data). El objetivo de este proyecto será estudiar esta base de datos y extraer información útil acerca del contexto nacional y su evolución a lo largo de los años en los ámbitos de ingresos, vivienda, salud y datos bancarios. Para esto y utilizando herramientas de minería de datos intentaremos caracterizar grupos socioeconómicos en base a estas dimensiones y evidenciar la deficiente distribución de riquezas en el país.
 
 
 
 # Exploración de Datos
 
-Para el análisis de datos primero estudiaremos cada una de las dimensiones por separado, tratando de visualizar ciertas caracterìsticas o tendencias presentes en los datos, para luego unificar la exploración general del dataset, buscando hallar una interpretación más clara a través de un análisis inicial de los datos.
+Para el análisis de datos primero estudiaremos cada una de las dimensiones por separado, tratando de visualizar ciertas caracterìsticas o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
 
 ## Ingresos
 
--Dimension
--Numero de filas y columnas
--laja vs quilicura vs puente alto vs las condes vs francia 
--region metropolitana, biobio, valpo
--descripción de los parámetros
+* Preprocesamiento necesario
+* Dimension, algunos estadísticos importantes 
+* descripción de los parámetros (columnas) consideradas
+* laja vs quilicura vs puente alto vs las condes 
+* region metropolitana, biobio, valpo , Maule 
+
 
 
 ## Salud
 
-La dimensión del dataset 
+**Pre Procesamiento: ** Los datos recopilados se encontraban en 4 bases de las cuales 3 correspondían a los identificaciones de la primera, fue necesario también agregar una base de datos extra con las identificaciones de regiones y comunas, todas las bases fueron unificadas mediante el comando merge y según las llaves necesarias. 
 
+No se encontraron datos inexistentes o inconsistentes en esta base de datos.
+
+
+**Dimensión y estadísticos : ** La base de datos del plan de salud de la encuesta CASEN consiste en 1746044 filas y 11 columnas, de las cuales consideraremos principalmente:
+
+1. Año en que se recopila la información (year)
+2. Sistema de salud del encuestado (health_system)
+3. Región del encuestado (region_name)
+4. Comuna del encuestado (comuna_name)
+
+  
+| Año                    | Plan de Salud    | Región                | Comuna              |
+| ---------------------- | ---------------  | --------------------- | ------------------- |
+| 2000: 248525           | Fonasa A: 639316 | Metropolitana: 330806 | Arica: 27222        |
+| 2003: 254456           | Fonasa B: 445391 | Bío Bío: 259047       | Antofagasta: 25108  | 
+| 2006: 268659           | Fonasa C: 183766 | Valparaíso: 171187    | Iquique: 24030      |
+| 2009: 246924           | Isapre: 163925   | Araucanía: 151506     | Copiapó: 22823      |
+| 2011: 294791           | Fonasa D: 128417 | Maule: 145793         | Valdivia: 20106     |
+| 2013: 218491           | Ninguno: 81272   | O'Higgins: 129199     | Punta Arenas: 17355 |
+| 2015: 214198           | (Other): 103957  | (Other): 558506       | (Other): 1609400    |
+
+El resto de características no eran relevantes para nuestro proyecto.
+
+**Análisis temporal: ** Consideraremos la evolución de la cantidad de personas que poseen determinados planes de salud a lo largo de los años y a través de las distintas regiones y comunas, las gráficas se presentan a continuación:
+
+![Plan de salud en Chile](../img/plan_salud_ano.png)
+Podemos ver que el plan Fonasa A ha estado predominando a lo largo de los años hasta el año 2009 donde comenzó a sufrir una baja importante, el plan FONASA B se ha mantenido constante y por sobre el resto de los planes que no han sufrido muchos cambios. Cabe destacar que el plan ISAPRE también comenzó a subir de manera sustancial a partir del año 2009. 
+
+![Plan de salud por región en Chile](../img/plan_salud_ano_region.png)
+Se consideraron también análisis con respecto al plan ISAPRE pues corresponde al más caro de los planes y podría ser un buen indicador del nivel de ingresos que tiene una determinada comuna/región. Como es de esperar, en la región Metropolitana gran parte de la población posee este plan mientras que en otras regiones la cantidad disminuye, esto podría ser un indicador de la concentración de riquezas a lo largo de Chile.
+
+![Plan de salud por comuna en Chile](../img/plan_salud_ano_comunas.png)
+Finalmente, podemos considerar un análisis más fino sobre las comunas, consideramos las comunas de los integrantes del grupo más la región de Las Condes pues se presume mostrarán diferencias considerables. Notar que en Las Condes la mayor parte de la población tiene ISAPRE mientras que en comunas de ingresos menores, este porcentaje disminuye, peor es el caso de comunas en regiones fuera de la Metropolitana. 
+
+Un dato prometedor con respecto a este análisis es el cambio que ocurrió en el año 2009 y esperamos poder relacionar la situación país con este fenómeno. También fue interesante notar que mediante el plan de salud, se pueden ver diferencias considerables al ingreso promedio. 
 
 ## Vivienda
 
@@ -45,22 +95,24 @@ La dimensión del dataset
 ## Datos Bancarios
 
 
-La Encuesta Casen es realizada por Ministerio de Desarrollo Social desde el año 1990 con una periodicidad; bianual o trianual. Hasta ahora, las encuestas aplicadas corresponden a los años 1990, 1992, 1994, 1996, 1998, 2000, 2003, 2006, 2009, 2011, 2013, 2105 y 2017
-
 # Preguntas y Problemas
 
-* **¿Existe alguna relación entre el ingreso promedio de una comuna y el plan de salud mayoritario de la misma? Y de ser así, ¿Que relación guardan?**
-
-* **¿Que relación existe entre la región y ingresos/salud/vivienda/banco??**
-
-* **¿Que cambios se han evidenciados a largo de los años?**
 
 * **¿?**
 
+* **¿Existe alguna relación entre el ingreso promedio de una comuna y el plan de salud mayoritario de la misma? Y de ser así, ¿Que relación guardan?**
+
+* **¿Qué relación existe entre la región y ingresos/salud/vivienda/banco??**
+
+* **¿Qué cambios se han evidenciados a largo de los años?**
+
+* **¿Qué sucedió el 2009 que produjo el cambio en la distribución de planes de salud?**
+
 * **¿Qué variables se puede relacionar las tendencias que se tengan a lo largo de los años sobre la disminución o aumento de tarjetas de créditos/débito?**
 
+* **¿Qué variables pueden medir de mejor forma la inequidad del país?**
 
-* **¿Qué variable se puede medir de mejor forma la inequidad del país?**
+
 
 
 

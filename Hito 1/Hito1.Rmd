@@ -32,23 +32,7 @@ Para el análisis de datos primero estudiaremos cada una de las dimensiones por 
 -descripción de los parámetros
 
 
-```{r}
-library(tidyverse)
-df_nombres_comunas<-comunas_id[c('comuna_datachile_id','comuna_name')]
-df_nombres_comunas<-df_nombres_comunas[order(df_nombres_comunas$'comuna_datachile_id'),]
-df_nombres_comunas<-rename(df_nombres_comunas, geography_id=comuna_datachile_id)
 
-df = merge(x = df_nombres_comunas, y = df_ingresos_comunas, by = "geography_id")
-
-filtro <- df %>%
-    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Lo Prado') | df$comuna_name== 'Quilicura') 
-
-boxplot(df$weighted_mean_income ~ df$year,ylim=c(18000,1500000), xlab = 'Year' , ylab = 'mean_income',main="Boxplot",col='dark blue')
-
-boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,300000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
-
-boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
-```
 
 
 ## Salud
@@ -94,6 +78,25 @@ df_ingresos_region<-read_csv("dataset/region_data_all.csv")
 df_ingresos_country<-read_csv("dataset/country_data_all.csv")
 
 comunas_id<- read_csv("dataset/2017_06_27_comunas_datachile_fixed.csv")
+
+```
+
+```{r}
+library(tidyverse)
+df_nombres_comunas<-comunas_id[c('comuna_datachile_id','comuna_name')]
+df_nombres_comunas<-df_nombres_comunas[order(df_nombres_comunas$'comuna_datachile_id'),]
+df_nombres_comunas<-rename(df_nombres_comunas, geography_id=comuna_datachile_id)
+
+df = merge(x = df_nombres_comunas, y = df_ingresos_comunas, by = "geography_id")
+
+filtro <- df %>%
+    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Lo Prado') | df$comuna_name== 'Quilicura') 
+
+boxplot(df$weighted_mean_income ~ df$year,ylim=c(18000,1500000), xlab = 'Year' , ylab = 'mean_income',main="Boxplot",col='dark blue')
+
+boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,300000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
+
+boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
 ```
 
 # Contribuciones

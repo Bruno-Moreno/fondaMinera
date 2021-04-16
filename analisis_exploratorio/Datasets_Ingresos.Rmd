@@ -35,7 +35,7 @@ df_nombres_comunas<-rename(df_nombres_comunas, geography_id=comuna_datachile_id)
 df = merge(x = df_nombres_comunas, y = df_ingresos_comunas, by = "geography_id")
 
 filtro <- df %>%
-    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Puente Alto') | df$comuna_name== 'Quilicura') 
+    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Lo Prado') | df$comuna_name== 'Quilicura') 
 
 boxplot(df$weighted_mean_income ~ df$year,ylim=c(18000,1500000), xlab = 'Year' , ylab = 'mean_income',main="Boxplot",col='dark blue')
 

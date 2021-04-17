@@ -13,13 +13,15 @@ comuna_name_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2
 zone_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/zone_id.csv")
 water_source_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/water_source_id.csv")
 land_using_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/land_using_id.csv")
+comuna_ids <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/2017_06_27_comunas_datachile_fixed.csv")
 ```
 
 
 ```{r}
 household <- household_for_db #se crea copia del dataframe original
-household$comuna_id <- comuna_id_id$id[match(household$comuna_id,comuna_id_id$value)] #se reasignan las id de las comunas
-household$comuna_id <- comuna_name_id$value[match(household$comuna_id,comuna_name_id$id)] #se reasignan las id de las comunas
+household$comuna_id <- comuna_ids$[match(household$comuna_id,comuna_id_id$value)] #se reasignan las id de las comunas
+#household$comuna_id <- comuna_id_id$id[match(household$comuna_id,comuna_id_id$value)] #se reasignan las id de las comunas
+#household$comuna_id <- comuna_name_id$value[match(household$comuna_id,comuna_name_id$id)] #se reasignan las id de las comunas
 household$zone_id <- zone_id$value[match(household$zone_id, zone_id$id)] #se reasignan las ids de laz zonas con rural o urbano
 household <- household[complete.cases(household$comuna_id), ] #se eliminan las entradas sin comuna
 colnames(household)[colSums(is.na(household)) > 0] #se buscan los nombres de las columnas con NA

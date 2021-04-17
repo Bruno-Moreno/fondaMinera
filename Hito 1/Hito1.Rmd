@@ -1,0 +1,333 @@
+---
+title: "Hito 1"
+output: html_notebook
+---
+
+**Integrantes: **
+
+* Nicolás Gatica
+
+* Cristóbal Igor
+
+* Nelson Moreno
+
+* Emilio Roa
+
+* Thomas Waldura 
+
+Para ver el repositorio del proyecto, la base de datos y análisis correspondiente, visitar [Github](https://github.com/Bruno-Moreno/fondaMinera).
+ 
+# Introducción
+
+![](../img/casen.png)
+
+La Encuesta de Caracterización Socioeconómica Nacional CASEN, es realizada por el Ministerio de Desarrollo Social con el objetivo de disponer de información que permita:
+
+1. Conocer periódicamente la situación de los hogares y de la población, especialmente de aquella en situación de pobreza y de aquellos grupos definidos como prioritarios por la política social, con relación a aspectos demográficos, de educación, salud, vivienda, trabajo e ingresos. En particular, estimar la magnitud de la pobreza y la distribución del ingreso; identificar carencias y demandas de la población en las áreas señaladas; y evaluar las distintas brechas que separan a los diferentes segmentos sociales y ámbitos territoriales.
+
+2. Evaluar el impacto de la política social: estimar la cobertura, la focalización y la distribución del gasto fiscal de los principales programas sociales de alcance nacional entre los hogares, según su nivel de ingreso, para evaluar el impacto de este gasto en el ingreso de los hogares y en la distribución del mismo.
+
+Su objeto de estudio son los hogares que habitan las viviendas particulares que se ubican en el territorio nacional, exceptuando algunas zonas muy alejadas o de difícil acceso, así como las personas que forman parte de esos hogares.
+
+Además del contexto nacional, la Encuesta Casen considera como dominios de estudio las regiones, y sus ámbitos urbano y rural.
+
+Para este proyecto trabajaremos con la base de datos dispuesta por CASEN y recuperada de [datachile.io](https://es.datachile.io/about/data). El objetivo de este proyecto será estudiar esta base de datos y extraer información útil acerca del contexto nacional y su evolución a lo largo de los años en los ámbitos de ingresos, vivienda, salud y datos bancarios. Para esto y utilizando herramientas de minería de datos intentaremos caracterizar grupos socioeconómicos en base a estas dimensiones y evidenciar la deficiente distribución de riquezas en el país.
+
+
+
+# Exploración de Datos
+
+Para el análisis de datos primero estudiaremos cada una de las dimensiones por separado, tratando de visualizar ciertas caracterìsticas o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
+
+## Ingresos
+
+* Preprocesamiento necesario
+* Dimension, algunos estadísticos importantes 
+* descripción de los parámetros (columnas) consideradas
+* laja vs quilicura vs puente alto vs las condes 
+* region metropolitana, biobio, valpo , Maule 
+
+
+
+## Salud
+
+**Pre Procesamiento: ** Los datos recopilados se encontraban en 4 bases de las cuales 3 correspondían a los identificaciones de la primera, fue necesario también agregar una base de datos extra con las identificaciones de regiones y comunas, todas las bases fueron unificadas mediante el comando merge y según las llaves necesarias. 
+
+No se encontraron datos inexistentes o inconsistentes en esta base de datos.
+
+
+**Dimensión y estadísticos : ** La base de datos del plan de salud de la encuesta CASEN consiste en 1746044 filas y 11 columnas, de las cuales consideraremos principalmente:
+
+1. Año en que se recopila la información (year)
+2. Sistema de salud del encuestado (health_system)
+3. Región del encuestado (region_name)
+4. Comuna del encuestado (comuna_name)
+
+  
+| Año                    | Plan de Salud    | Región                | Comuna              |
+| ---------------------- | ---------------  | --------------------- | ------------------- |
+| 2000: 248525           | Fonasa A: 639316 | Metropolitana: 330806 | Arica: 27222        |
+| 2003: 254456           | Fonasa B: 445391 | Bío Bío: 259047       | Antofagasta: 25108  | 
+| 2006: 268659           | Fonasa C: 183766 | Valparaíso: 171187    | Iquique: 24030      |
+| 2009: 246924           | Isapre: 163925   | Araucanía: 151506     | Copiapó: 22823      |
+| 2011: 294791           | Fonasa D: 128417 | Maule: 145793         | Valdivia: 20106     |
+| 2013: 218491           | Ninguno: 81272   | O'Higgins: 129199     | Punta Arenas: 17355 |
+| 2015: 214198           | (Other): 103957  | (Other): 558506       | (Other): 1609400    |
+
+El resto de características no eran relevantes para nuestro proyecto.
+
+**Análisis temporal: ** Consideraremos la evolución de la cantidad de personas que poseen determinados planes de salud a lo largo de los años y a través de las distintas regiones y comunas, las gráficas se presentan a continuación:
+
+![Plan de salud en Chile](../img/plan_salud_ano.png)
+Podemos ver que el plan Fonasa A ha estado predominando a lo largo de los años hasta el año 2009 donde comenzó a sufrir una baja importante, el plan FONASA B se ha mantenido constante y por sobre el resto de los planes que no han sufrido muchos cambios. Cabe destacar que el plan ISAPRE también comenzó a subir de manera sustancial a partir del año 2009. 
+
+![Plan de salud por región en Chile](../img/plan_salud_ano_region.png)
+Se consideraron también análisis con respecto al plan ISAPRE pues corresponde al más caro de los planes y podría ser un buen indicador del nivel de ingresos que tiene una determinada comuna/región. Como es de esperar, en la región Metropolitana gran parte de la población posee este plan mientras que en otras regiones la cantidad disminuye, esto podría ser un indicador de la concentración de riquezas a lo largo de Chile.
+
+![Plan de salud por comuna en Chile](../img/plan_salud_ano_comunas.png)
+Finalmente, podemos considerar un análisis más fino sobre las comunas, consideramos las comunas de los integrantes del grupo más la región de Las Condes pues se presume mostrarán diferencias considerables. Notar que en Las Condes la mayor parte de la población tiene ISAPRE mientras que en comunas de ingresos menores, este porcentaje disminuye, peor es el caso de comunas en regiones fuera de la Metropolitana. 
+
+Un dato prometedor con respecto a este análisis es el cambio que ocurrió en el año 2009 y esperamos poder relacionar la situación país con este fenómeno. También fue interesante notar que mediante el plan de salud, se pueden ver diferencias considerables al ingreso promedio. 
+
+## Vivienda
+
+
+## Datos Bancarios
+
+
+# Preguntas y Problemas
+
+
+* **¿?**
+
+* **¿Existe alguna relación entre el ingreso promedio de una comuna y el plan de salud mayoritario de la misma? Y de ser así, ¿Que relación guardan?**
+
+* **¿Qué relación existe entre la región y ingresos/salud/vivienda/banco??**
+
+* **¿Qué cambios se han evidenciados a largo de los años?**
+
+* **¿Qué sucedió el 2009 que produjo el cambio en la distribución de planes de salud?**
+
+* **¿Qué variables se puede relacionar las tendencias que se tengan a lo largo de los años sobre la disminución o aumento de tarjetas de créditos/débito?**
+
+* **¿Qué variables pueden medir de mejor forma la inequidad del país?**
+
+
+
+
+
+
+
+
+# Códigos de fuente utilizado para generar sus estadísticas y análisis
+
+### Dataset Ingresos
+```{r}
+#Cargar Datasets Ingresos
+library(readr)
+
+df_ingresos_comunas<-read_csv("dataset/comuna_data_all.csv")
+df_ingresos_region<-read_csv("dataset/region_data_all.csv")
+df_ingresos_country<-read_csv("dataset/country_data_all.csv")
+
+comunas_id<- read_csv("dataset/2017_06_27_comunas_datachile_fixed.csv")
+
+```
+
+```{r}
+library(tidyverse)
+df_nombres_comunas<-comunas_id[c('comuna_datachile_id','comuna_name')]
+df_nombres_comunas<-df_nombres_comunas[order(df_nombres_comunas$'comuna_datachile_id'),]
+df_nombres_comunas<-rename(df_nombres_comunas, geography_id=comuna_datachile_id)
+
+df = merge(x = df_nombres_comunas, y = df_ingresos_comunas, by = "geography_id")
+
+filtro <- df %>%
+    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Lo Prado') | df$comuna_name== 'Quilicura') 
+
+boxplot(df$weighted_mean_income ~ df$year,ylim=c(18000,1500000), xlab = 'Year' , ylab = 'mean_income',main="Boxplot",col='dark blue')
+
+boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,300000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
+
+boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
+```
+
+### Dataset Salud
+
+```{r}
+library(readr)
+#Iimportamos los dataset de salud 
+healthsystem <- read_csv("~/GitHub/fondaMinera/dataset/healthsystem.csv")
+healthsystem_ids <- read_csv("~/GitHub/fondaMinera/dataset/healthsystem_ids.csv")
+healthsystemgroup_ids <- read_csv("~/GitHub/fondaMinera/dataset/healthsystemgroup_ids.csv")
+comunas <- read_csv("~/GitHub/fondaMinera/dataset/2017_06_27_comunas_datachile_fixed.csv")
+```
+
+```{r}
+#Unificamos las id's en el dataset global 
+temp1 <- merge(x = healthsystem, y = healthsystem_ids, by = "health_system_id")
+temp2 <- merge(x = temp1 , y = comunas , by= "comuna_datachile_id")
+#Eliminamos las columnas con las id's que no sirven 
+sistema_salud <- temp2[,-c(1,2,12,14,15)]
+#Eliminamos las variables del sistema 
+remove(temp1, temp2, healthsystem, healthsystem_ids , healthsystemgroup_ids , comunas)
+#Cambiamos el nombre de esta variable
+sistema_salud[sistema_salud$health_system == 'Fuerzas Armadas, de Orden y Seguridad Pública',4] <- 'Fuerzas armadas'
+```
+
+```{r}
+#Cambiamos el tipo de dato de ciertas columnas
+sistema_salud$year = as.factor(sistema_salud$year)
+sistema_salud$region_name = as.factor(sistema_salud$region_name)
+sistema_salud$comuna_name = as.factor(sistema_salud$comuna_name)
+sistema_salud$health_system = as.factor(sistema_salud$health_system)
+head(sistema_salud)
+```
+
+```{r}
+#Algunos datos
+dim(sistema_salud) #La dimensión es de 1746044 x 11
+sum(is.na(sistema_salud)) #No hay valores NA 
+summary(sistema_salud)
+```
+
+```{r}
+#Veamos la evolución de las distintas fonasas a lo largo de los años 
+library(dplyr)
+plan_salud <- sistema_salud[,c(1,4,9,10)]
+plan_salud_ano <- plan_salud %>%
+  group_by(plan_salud$year,plan_salud$health_system) %>%
+  count() %>% 
+  rename(ano = `plan_salud$year` , plan_de_salud = `plan_salud$health_system`)
+head(plan_salud_ano)
+```
+
+```{r}
+#Frecuancia relativa 
+sum_2000 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2000'])
+sum_2003 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2003'])
+sum_2006 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2006'])
+sum_2009 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2009'])
+sum_2011 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2011'])
+sum_2013 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2013'])
+sum_2015 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2015'])
+#Definimos una función para aplicarlo sobre las sumas 
+relativa <- function(año,n){
+  if(año == '2000'){
+      return(n/sum_2000*100)
+  }
+  if(año == '2003'){
+      return(n/sum_2003*100)
+  } 
+  if(año == '2006'){
+      return(n/sum_2006*100)
+  } 
+  if(año == '2009'){
+      return(n/sum_2009*100)
+  } 
+  if(año == '2011'){
+      return(n/sum_2011*100)
+  } 
+  if(año == '2013'){
+      return(n/sum_2013*100)
+  } 
+  if(año == '2015'){
+      return(n/sum_2015*100)
+  } 
+
+}
+plan_salud_ano$porcentaje <- mapply(relativa,plan_salud_ano$ano , plan_salud_ano$n)
+head(plan_salud_ano)
+
+```
+
+```{r}
+#Ahora ploteamos 
+#un pequeño ajuste al año
+plan_salud_ano$ano <- as.numeric(as.character(plan_salud_ano$ano))
+#ahora ploteamos
+library(ggplot2)
+ggplot(data = plan_salud_ano , aes(x = ano , y = porcentaje , color = plan_de_salud)) + 
+  geom_line() + 
+  labs(title ="Análisis temporal del plan de salud", subtitle = "Encuesta Casen", x = "Año" , y= "Porcentaje de la población") + 
+  scale_x_discrete(limits=c(2000, 2003, 2006,2009,2011,2013,2015))+
+  ggsave("plan_salud_ano.png" , path = "../img/",width=10)
+  
+```
+
+```{r}
+comuna1 <- 'Quilicura'
+comuna2 <- 'Puente Alto'
+comuna3 <- 'Las Condes'
+comuna4 <- 'Laja'
+  
+isapre <- sistema_salud[sistema_salud$health_system == 'Isapre',c(1,4,10,11)]
+#veamos el caso particular de puente alto, quilicura y las condes 
+isapre_comuna <- isapre %>%
+  filter(comuna_name == comuna1 | comuna_name == comuna2 | comuna_name == comuna3 | comuna_name == comuna4) %>%
+  group_by(year,comuna_name) %>%
+  count()
+#Este es el plan de todos los de esas comunas
+todosplanes <- sistema_salud[,c(1,4,10,11)]
+todosplanes_comuna <- todosplanes %>%
+  filter(comuna_name == comuna1 | comuna_name == comuna2 | comuna_name == comuna3 | comuna_name == comuna4) %>%
+  group_by(year,comuna_name) %>%
+  count()
+
+isapre_comuna$relativo <- isapre_comuna$n/todosplanes_comuna$n * 100
+
+```
+
+```{r}
+#Ahora ploteamos 
+#un pequeño ajuste al año
+isapre_comuna$year <- as.numeric(as.character(isapre_comuna$year))
+#ahora ploteamos
+ggplot(data = isapre_comuna , aes(x = year , y = relativo , color = comuna_name)) + 
+  geom_line() + 
+  labs(title ="Análisis temporal del plan Isapre en algunas comunas", subtitle = "Encuesta Casen", x = "Año" , y= "Porcentaje de la población en la comuna con isapre") + 
+  scale_x_discrete(limits=c(2000, 2003, 2006,2009,2011,2013,2015)) + 
+  ggsave("plan_salud_ano_comunas.png" , path = "../img/",width=10)
+  
+```
+
+```{r}
+region1 <- 'Valparaíso'
+region2 <- 'Región Metropolitana Santiago'
+region3 <- 'Maule'
+region4 <- 'Bío Bío'
+  
+#veamos el caso particular delas regiones metropolitana, valparaiso, biobio, maule 
+isapre_region <- isapre %>%
+  filter(region_name == region1 | region_name == region2 | region_name == region3 | region_name == region4) %>%
+  group_by(year,region_name) %>%
+  count()
+#Este es el plan de todos los de esas comunas
+todosplanes_region <- todosplanes %>%
+  filter(region_name == region1 | region_name == region2 | region_name == region3 | region_name == region4) %>%
+  group_by(year,region_name) %>%
+  count()
+
+isapre_region$relativo <- isapre_region$n/todosplanes_region$n * 100
+
+```
+
+```{r}
+#Ahora ploteamos 
+#un pequeño ajuste al año
+isapre_region$year <- as.numeric(as.character(isapre_region$year))
+#ahora ploteamos
+ggplot(data = isapre_region , aes(x = year , y = relativo , color = region_name)) + 
+  geom_line() + 
+  labs(title ="Análisis temporal del plan Isapre en algunas regiones", subtitle = "Encuesta Casen", x = "Año" , y= "Porcentaje de la población en la region con isapre") + 
+  scale_x_discrete(limits=c(2000, 2003, 2006,2009,2011,2013,2015)) + 
+  ggsave("plan_salud_ano_region.png" , path = "../img/",width=10)
+  
+```
+
+
+# Contribuciones
+
+# Referencias
+
+Ministerio de Desarrollo Social (MDS), Encuesta de caracterización Socioeconómica Nacional (CASEN) 1990-2015, recuperado de [datachile.io](https://es.datachile.io/about/data).

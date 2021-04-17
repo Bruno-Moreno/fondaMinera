@@ -1,0 +1,244 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#install.packages("dplyr")
+library(dplyr)
+library(readr)
+banking_products <- read_csv("C:/Users/ngati/banking_products.csv")
+View(banking_products)
+banking_products_id <- read_csv("C:/Users/ngati/banking_products_id.csv")
+View(banking_products_id)
+comunas <- read_csv("C:/Users/ngati/2017_06_27_comunas_datachile_fixed.csv")
+View(comunas)
+```
+
+```{r}
+library(readr)
+banking_products <- read_csv("C:/Users/ngati/banking_products.csv")
+banking_products_id <- read_csv("C:/Users/ngati/banking_products_id.csv")
+comunas <- read_csv("C:/Users/ngati/2017_06_27_comunas_datachile_fixed.csv")
+```
+
+```{r}
+#Unificamos las id's en el dataset global 
+#temp1 <- merge(x = banking_products, y = banking_products_id, by = "health_system_id")
+temp2 <- merge(x = banking_products , y = comunas , by= "comuna_datachile_id")
+#Eliminamos las columnas con las id's que no sirven 
+sistema_bancario <- temp2[,-c(1,10,12,13)]
+#Eliminamos las variables del sistema 
+
+remove(temp2, banking_products, banking_products_id, comunas)
+#Cambiamos el nombre de esta variable
+#sistema_salud[sistema_salud$health_system == 'Fuerzas Armadas, de Orden y Seguridad Pública',4] <- 'Fuerzas armadas'
+```
+
+```{r}
+#Algunos datos
+dim(sistema_bancario) #La dimensión es de 1746044 x 11
+sum(is.na(sistema_bancario)) #No hay valores NA 
+summary(sistema_bancario)
+```
+
+```{r}
+#Cambiamos el tipo de dato de ciertas columnas
+sistema_bancario$year = as.factor(sistema_bancario$year)
+sistema_bancario$region_name = as.factor(sistema_bancario$region_name)
+sistema_bancario$comuna_name = as.factor(sistema_bancario$comuna_name)
+
+head(sistema_bancario)
+```
+
+```{r}
+#Frecuancia relativa 
+filtroa <- sistema_bancario %>%
+  filter(sistema_bancario$year == 2011)
+
+suma_debitcard <- sum(filtroa$debit_card_id == 1)
+suma_creditcard <- sum(filtroa$credit_card_bank_id == 1)
+suma_creditcardstore <- sum(filtroa$credit_card_store_id == 1)
+suma_checks <- sum(filtroa$checks_id == 1)
+suma_creditline <- sum(filtroa$credit_line_id == 1)
+
+
+
+sumas = c(suma_debitcard, suma_creditcard, suma_creditcardstore, suma_checks, suma_creditline)
+datos = c('Tarjeta Débito', 'Tarjeta Crédito', 'Tarjeta Crédito Store', 'Cheques', 'Línea de Crédito')
+year = sample(c('2011'), size = 5, replace = TRUE)
+
+dfa = data.frame(datos, sumas, year)
+dfa$datos = as.factor(dfa$datos)
+
+filtrob <- sistema_bancario %>%
+  filter(sistema_bancario$year == 2013)
+
+suma_debitcard <- sum(filtrob$debit_card_id == 1)
+suma_creditcard <- sum(filtrob$credit_card_bank_id == 1)
+suma_creditcardstore <- sum(filtrob$credit_card_store_id == 1)
+suma_checks <- sum(filtrob$checks_id == 1)
+suma_creditline <- sum(filtrob$credit_line_id == 1)
+
+
+
+sumas = c(suma_debitcard, suma_creditcard, suma_creditcardstore, suma_checks, suma_creditline)
+datos = c('Tarjeta Débito', 'Tarjeta Crédito', 'Tarjeta Crédito Store', 'Cheques', 'Línea de Crédito')
+year = sample(c('2013'), size = 5, replace = TRUE)
+
+dfb = data.frame(datos, sumas, year)
+dfb$datos = as.factor(dfb$datos)
+
+filtroc <- sistema_bancario %>%
+  filter(sistema_bancario$year == 2015)
+
+suma_debitcard <- sum(filtroc$debit_card_id == 1)
+suma_creditcard <- sum(filtroc$credit_card_bank_id == 1)
+suma_creditcardstore <- sum(filtroc$credit_card_store_id == 1)
+suma_checks <- sum(filtroc$checks_id == 1)
+suma_creditline <- sum(filtroc$credit_line_id == 1)
+
+
+
+sumas = c(suma_debitcard, suma_creditcard, suma_creditcardstore, suma_checks, suma_creditline)
+datos = c('Tarjeta Débito', 'Tarjeta Crédito', 'Tarjeta Crédito Store', 'Cheques', 'Línea de Crédito')
+year = sample(c('2015'), size = 5, replace = TRUE)
+
+dfc = data.frame(datos, sumas, year)
+dfc$datos = as.factor(dfc$datos)
+
+p <- bind_rows(dfa, dfb)
+q <- bind_rows(p, dfc)
+
+
+#p<-ggplot(data=df, aes(x=sumas, y=datos)) +
+#  geom_bar(stat="identity")
+
+
+ggplot(data=q, aes(x=sumas, y=datos, fill=year)) + geom_bar(stat="identity", position=position_dodge())
+
+#plot(df$sumas, df$datos)
+
+```
+```{r}
+#Frecuancia relativa 
+filtro1 <- sistema_bancario %>%
+  filter(sistema_bancario$comuna_name=='Quilicura' )
+
+suma_debitcard1 <- sum(filtro1$debit_card_id == 1)
+suma_creditcard1 <- sum(filtro1$credit_card_bank_id == 1)
+suma_creditcardstore1 <- sum(filtro1$credit_card_store_id == 1)
+suma_checks1 <- sum(filtro1$checks_id == 1)
+suma_creditline1 <- sum(filtro1$credit_line_id == 1)
+suma_debitcard2 <- sum(filtro1$debit_card_id == 2)
+suma_creditcard2 <- sum(filtro1$credit_card_bank_id == 2)
+suma_creditcardstore2 <- sum(filtro1$credit_card_store_id == 2)
+suma_checks2 <- sum(filtro1$checks_id == 2)
+suma_creditline2 <- sum(filtro1$credit_line_id == 2)
+
+
+si = c(suma_debitcard1, suma_creditcard1, suma_creditcardstore1, suma_checks1, suma_creditline1)
+no = c(suma_debitcard2, suma_creditcard2, suma_creditcardstore2, suma_checks2, suma_creditline2)
+datos = c('Tarjeta Débito', 'Tarjeta Crédito', 'Tarjeta Crédito Store', 'Cheques', 'Línea de Crédito')
+comuna = sample(c("Quilicura"), size = 5, replace = TRUE)
+
+df1 = data.frame(datos, si, no, comuna)
+df1$datos = as.factor(df1$datos)
+df1$comuna = as.factor(df1$comuna)
+
+
+#ggplot(data=df, aes(x=si, y=comuna, fill=datos)) + geom_bar(stat="identity", position=position_dodge())
+
+
+#Frecuancia relativa 
+filtro2 <- sistema_bancario %>%
+  filter(sistema_bancario$comuna_name=='Puente Alto' )
+
+suma_debitcard1 <- sum(filtro2$debit_card_id == 1)
+suma_creditcard1 <- sum(filtro2$credit_card_bank_id == 1)
+suma_creditcardstore1 <- sum(filtro2$credit_card_store_id == 1)
+suma_checks1 <- sum(filtro2$checks_id == 1)
+suma_creditline1 <- sum(filtro2$credit_line_id == 1)
+suma_debitcard2 <- sum(filtro2$debit_card_id == 2)
+suma_creditcard2 <- sum(filtro2$credit_card_bank_id == 2)
+suma_creditcardstore2 <- sum(filtro2$credit_card_store_id == 2)
+suma_checks2 <- sum(filtro2$checks_id == 2)
+suma_creditline2 <- sum(filtro2$credit_line_id == 2)
+
+
+si = c(suma_debitcard1, suma_creditcard1, suma_creditcardstore1, suma_checks1, suma_creditline1)
+no = c(suma_debitcard2, suma_creditcard2, suma_creditcardstore2, suma_checks2, suma_creditline2)
+datos = c('Tarjeta Débito', 'Tarjeta Crédito', 'Tarjeta Crédito Store', 'Cheques', 'Línea de Crédito')
+comuna = sample(c("Puente Alto"), size = 5, replace = TRUE)
+
+df2 = data.frame(datos, si, no, comuna)
+df2$datos = as.factor(df2$datos)
+df2$comuna = as.factor(df2$comuna)
+
+
+
+#Frecuancia relativa 
+filtro3 <- sistema_bancario %>%
+  filter(sistema_bancario$comuna_name=='Laja' )
+
+suma_debitcard1 <- sum(filtro3$debit_card_id == 1)
+suma_creditcard1 <- sum(filtro3$credit_card_bank_id == 1)
+suma_creditcardstore1 <- sum(filtro3$credit_card_store_id == 1)
+suma_checks1 <- sum(filtro3$checks_id == 1)
+suma_creditline1 <- sum(filtro3$credit_line_id == 1)
+suma_debitcard2 <- sum(filtro3$debit_card_id == 2)
+suma_creditcard2 <- sum(filtro3$credit_card_bank_id == 2)
+suma_creditcardstore2 <- sum(filtro3$credit_card_store_id == 2)
+suma_checks2 <- sum(filtro3$checks_id == 2)
+suma_creditline2 <- sum(filtro3$credit_line_id == 2)
+
+
+si = c(suma_debitcard1, suma_creditcard1, suma_creditcardstore1, suma_checks1, suma_creditline1)
+no = c(suma_debitcard2, suma_creditcard2, suma_creditcardstore2, suma_checks2, suma_creditline2)
+datos = c('Tarjeta Débito', 'Tarjeta Crédito', 'Tarjeta Crédito Store', 'Cheques', 'Línea de Crédito')
+comuna = sample(c("Laja"), size = 5, replace = TRUE)
+
+df3 = data.frame(datos, si, no, comuna)
+df3$datos = as.factor(df3$datos)
+df3$comuna = as.factor(df3$comuna)
+
+
+
+#Frecuancia relativa 
+filtro4 <- sistema_bancario %>%
+  filter(sistema_bancario$comuna_name=='Las Condes' )
+
+suma_debitcard1 <- sum(filtro4$debit_card_id == 1)
+suma_creditcard1 <- sum(filtro4$credit_card_bank_id == 1)
+suma_creditcardstore1 <- sum(filtro4$credit_card_store_id == 1)
+suma_checks1 <- sum(filtro4$checks_id == 1)
+suma_creditline1 <- sum(filtro4$credit_line_id == 1)
+suma_debitcard2 <- sum(filtro4$debit_card_id == 2)
+suma_creditcard2 <- sum(filtro4$credit_card_bank_id == 2)
+suma_creditcardstore2 <- sum(filtro4$credit_card_store_id == 2)
+suma_checks2 <- sum(filtro4$checks_id == 2)
+suma_creditline2 <- sum(filtro4$credit_line_id == 2)
+
+
+si = c(suma_debitcard1, suma_creditcard1, suma_creditcardstore1, suma_checks1, suma_creditline1)
+no = c(suma_debitcard2, suma_creditcard2, suma_creditcardstore2, suma_checks2, suma_creditline2)
+datos = c('Tarjeta Débito', 'Tarjeta Crédito', 'Tarjeta Crédito Store', 'Cheques', 'Línea de Crédito')
+comuna = sample(c("Las Condes"), size = 5, replace = TRUE)
+
+df4 = data.frame(datos, si, no, comuna)
+df4$datos = as.factor(df4$datos)
+df4$comuna = as.factor(df4$comuna)
+
+
+a <- bind_rows(df1, df2)
+b <- bind_rows(a, df3)
+c <- bind_rows(b, df4)
+
+ggplot(data=c, aes(x=si, y=datos, fill=comuna)) + geom_bar(stat="identity", position=position_dodge())
+
+```
+

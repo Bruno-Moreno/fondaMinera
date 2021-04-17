@@ -18,6 +18,9 @@ less_than_20_blocks_health_center_id <- read_csv("D:/OneDrive - Universidad de C
 less_than_20_blocks_educational_center_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/less_than_20_blocks_educational_center_id.csv")
 less_than_8_blocks_public_transport_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/less_than_8_blocks_public_transport_id.csv")
 paying_credit_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/paying_credit_id.csv")
+household_sq_meters_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/household_sq_meters_id.csv")
+water_distribution_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/water_distribution_id.csv")
+subsidy_or_program_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/subsidy_or_program_id.csv")
 ```
 
 
@@ -87,12 +90,31 @@ ggplot(household[household$region_name %in% unique(household$region_name)[11:13]
   ylab('frecuencia') +
   scale_x_discrete('tipos', labels=walls_material_id$value) +
   ggtitle("Materiales de las paredes
-          por tipo de zona")
+          por región")
+```
+```{r}
+ggplot(household[household$zone_type %in% unique(household$zone_type),], aes(x = less_than_20_blocks_health_center)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(zone_type ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('respuesta', labels=less_than_20_blocks_health_center_id$value) +
+  ggtitle("Existencia de centro médico en menos de 20 cuadras")
+```
+```{r}
+ggplot(household[household$region_name %in% unique(household$region_name)[12:15],], aes(x = subsidy_or_program)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(region_name ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('tipo', labels=subsidy_or_program_id$value) +
+  ggtitle("Tipo de subsidio o pograma
+          por región")
 ```
 ```{r}
 #comunas de santiago
 comunas_stgo <- unique(household[household$region_name=='Región Metropolitana Santiago',]$comuna_name)
-
+```
 ```{r}
 #tabla que relaciona 2 atributos (en este caso paredes)
 table(household$floor_material,household$walls_material, dnn=c('material del piso','material de las paredes'))

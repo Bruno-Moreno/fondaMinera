@@ -7,24 +7,35 @@ output: html_document
 ```{r}
 #se abre datasets relevantes de vivienda
 library(readr)
+library(tidyverse)
 household_for_db <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/household_for_db.csv")
-comuna_id_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/comuna_id_id.csv")
-comuna_name_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/comuna_name_id.csv")
 zone_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/zone_id.csv")
 water_source_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/water_source_id.csv")
 land_using_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/land_using_id.csv")
 comuna_ids <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/2017_06_27_comunas_datachile_fixed.csv")
+walls_material_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/walls_material_id.csv")
+less_than_20_blocks_health_center_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/less_than_20_blocks_health_center_id.csv")
+less_than_20_blocks_educational_center_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/less_than_20_blocks_educational_center_id.csv")
+less_than_8_blocks_public_transport_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/less_than_8_blocks_public_transport_id.csv")
+paying_credit_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/paying_credit_id.csv")
 ```
 
 
 ```{r}
 household <- household_for_db #se crea copia del dataframe original
-household$comuna_id <- comuna_ids$[match(household$comuna_id,comuna_id_id$value)] #se reasignan las id de las comunas
-#household$comuna_id <- comuna_id_id$id[match(household$comuna_id,comuna_id_id$value)] #se reasignan las id de las comunas
-#household$comuna_id <- comuna_name_id$value[match(household$comuna_id,comuna_name_id$id)] #se reasignan las id de las comunas
+household$comuna_id <- comuna_ids$comuna_name[match(household$comuna_id,comuna_ids$comuna_customs_id)] #se reasignan las id de las comunas
+household$comuna_datachile_id <- comuna_ids$region_name[match(household$comuna_id, comuna_ids$comuna_name)]
 household$zone_id <- zone_id$value[match(household$zone_id, zone_id$id)] #se reasignan las ids de laz zonas con rural o urbano
 household <- household[complete.cases(household$comuna_id), ] #se eliminan las entradas sin comuna
 colnames(household)[colSums(is.na(household)) > 0] #se buscan los nombres de las columnas con NA
+household <- household %>%
+  rename(#se cambian los nombres de las columnas
+    comuna_name = comuna_id,
+    region_name = comuna_datachile_id,
+    zone_type = zone_id
+    ) %>%
+  relocate(region_name) #se mueve region_name al principio
+
 ```
 ```{r}
 #se cambian los NA con una id que representará 'Sin Dato'
@@ -44,13 +55,14 @@ summary(household) #se obtiene un sumario
 ```
 
 ```{r}
-unique(household$comuna_id) #nombres de las comunas con datos
-colnames(household[-1:-2]) #nombre de los datos de las columnas
+unique(household$comuna_name) #nombres de las comunas con datos
+unique(household$region_name) #nombres de las regiones con datos
+colnames(household[-1:-3]) #nombre de los datos de las columnas
 ```
 ```{r}
-ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = walls_material)) +
+ggplot(household[household$comuna_name %in% unique(household$comuna_name)[110:3],], aes(x = walls_material)) +
   geom_bar(fill = "white", colour = "black")+
-  facet_grid(comuna_id ~ .) +
+  facet_grid(comuna_name ~ .) +
   coord_flip() +
   ylab('frecuencia') +
   scale_x_discrete('tipos', labels=walls_material_id$value) +
@@ -58,50 +70,33 @@ ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], ae
           por comuna")
 ```
 ```{r}
-ggplot(household[household$zone_id %in% unique(household$zone_id),], aes(x = walls_material)) +
+ggplot(household[household$zone_type %in% unique(household$zone_type),], aes(x = walls_material)) +
   geom_bar(fill = "white", colour = "black")+
-  facet_grid(zone_id ~ .) +
+  facet_grid(zone_type ~ .) +
   coord_flip() +
   ylab('frecuencia') +
   scale_x_discrete('tipos', labels=walls_material_id$value) +
   ggtitle("Materiales de las paredes
-          por comuna")
+          por tipo de zona")
 ```
 ```{r}
-ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = water_source)) +
+ggplot(household[household$region_name %in% unique(household$region_name)[11:13],], aes(x = walls_material)) +
   geom_bar(fill = "white", colour = "black")+
-  facet_grid(comuna_id ~ .) +
+  facet_grid(region_name ~ .) +
   coord_flip() +
   ylab('frecuencia') +
-  scale_x_discrete('tipos', labels=water_source_id$value)+
-  ggtitle("Fuente de agua por comuna")
+  scale_x_discrete('tipos', labels=walls_material_id$value) +
+  ggtitle("Materiales de las paredes
+          por tipo de zona")
 ```
 ```{r}
-ggplot(household[household$zone_id %in% unique(household$zone_id),], aes(x = water_source)) +
-  geom_bar(fill = "white", colour = "black")+
-  facet_grid(zone_id ~ .) +
-  coord_flip() +
-  ylab('frecuencia') +
-  scale_x_discrete('tipos', labels=water_source_id$value)+
-  ggtitle("Fuente de agua por
-          tipo de zona")
-```
+#comunas de santiago
+comunas_stgo <- unique(household[household$region_name=='Región Metropolitana Santiago',]$comuna_name)
+
 ```{r}
-ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = rooms)) +
-  geom_bar(fill = "white", colour = "black") +
-  facet_grid(. ~ comuna_id) +
-  coord_flip() +
-  xlab('cantidad de habitaciones') +
-  ylab('frecuencia') +
-  ggtitle("Habitaciones por Comuna")
+#tabla que relaciona 2 atributos (en este caso paredes)
+table(household$floor_material,household$walls_material, dnn=c('material del piso','material de las paredes'))
 ```
-```{r}
-ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = land_using)) +
-  geom_bar(fill = "white", colour = "black") +
-  facet_grid(. ~ comuna_id) +
-  coord_flip() +
-  ylab('frecuencia') + scale_x_discrete('tipos', labels=land_using_id$value)+
-  ggtitle("Tierra en uso
-          por comuna")
-```
+
+
 

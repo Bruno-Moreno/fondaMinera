@@ -1,6 +1,8 @@
 ---
 title: "Datasets Ingresos por comunas, regiones y país"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 
@@ -14,13 +16,35 @@ install.packages("tm")
 
 ```{r}
 #Cargar Datasets Ingresos
+library(readr)
 
-df_ingresos_comunas<-read_csv("dataset/comuna_data_all.csv")
-df_ingresos_region<-read_csv("dataset/region_data_all.csv")
-df_ingresos_country<-read_csv("dataset/country_data_all.csv")
+df_ingresos_comunas<-read_csv("../dataset/comuna_data_all.csv")
+df_ingresos_region<-read_csv("../dataset/region_data_all.csv")
+df_ingresos_country<-read_csv("../dataset/country_data_all.csv")
 
-comunas_id<- read_csv("2017_06_27_comunas_datachile_fixed.csv")
+comunas_id<- read_csv("../dataset/2017_06_27_comunas_datachile_fixed.csv")
 ```
+# Análisis Exploratorio
+
+## Dimensiones de los datasets
+```{r}
+dim(df_ingresos_comunas)
+dim(df_ingresos_region)
+dim(df_ingresos_country)
+```
+```{r}
+library(tidyverse)
+df_nombres_comunas<-comunas_id[c('comuna_datachile_id','comuna_name')]
+df_nombres_comunas<-df_nombres_comunas[order(df_nombres_comunas$'comuna_datachile_id'),]
+df_nombres_comunas<-rename(df_nombres_comunas, geography_id=comuna_datachile_id)
+
+df = merge(x = df_nombres_comunas, y = df_ingresos_comunas, by = "geography_id")
+df <- select(df, -geography_id) 
+
+summary(df)
+```
+
+
 
 #Algunas Estadísticas por Comunas
 
@@ -28,18 +52,13 @@ comunas_id<- read_csv("2017_06_27_comunas_datachile_fixed.csv")
 ```{r}
 #comuna_data_all
 
-df_nombres_comunas<-comunas_id[c('comuna_datachile_id','comuna_name')]
-df_nombres_comunas<-df_nombres_comunas[order(df_nombres_comunas$'comuna_datachile_id'),]
-df_nombres_comunas<-rename(df_nombres_comunas, geography_id=comuna_datachile_id)
-
-df = merge(x = df_nombres_comunas, y = df_ingresos_comunas, by = "geography_id")
 
 filtro <- df %>%
-    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Lo Prado') | df$comuna_name== 'Quilicura') 
+    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Quilicura') | df$comuna_name== 'Puente Alto') 
 
 boxplot(df$weighted_mean_income ~ df$year,ylim=c(18000,1500000), xlab = 'Year' , ylab = 'mean_income',main="Boxplot",col='dark blue')
 
-boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,300000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
+boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
 
 boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
 
@@ -56,9 +75,9 @@ boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), 
 filtro <- df_ingresos_region %>%
     filter(df_ingresos_region$geography_id == 8 )
 
-boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$year,ylim=c(0,350000), xlab = 'Year' , ylab = 'mean_income',main="Ingresos v/s años",col='dark blue')
+boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$year, xlab = 'Year' , ylab = 'mean_income',main="Ingresos v/s años",col='dark blue')
 
-boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$geography_id,ylim=c(18000,350000), xlab = 'Regiones' , ylab = 'mean_income',main="Ingresos por región",col='sky blue')
+boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$geography_id, xlab = 'Regiones' , ylab = 'mean_income',main="Ingresos por región",col='sky blue')
 
 #boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
 

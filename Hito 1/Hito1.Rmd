@@ -40,13 +40,54 @@ La motivación de haber escogido esta base de datos viene dada por el problema N
 
 Para el análisis de datos primero se estudiará cada una de las dimensiones por separado, tratando de visualizar ciertas características o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
 
-## Ingresos
 
 * Preprocesamiento necesario
 * Dimension, algunos estadísticos importantes 
 * descripción de los parámetros (columnas) consideradas
 * laja vs quilicura vs puente alto vs las condes 
 * region metropolitana, biobio, valpo , Maule 
+
+
+## Ingresos
+
+En el ámbito de ingresos se tienen 3 datasets con información acerca del ingreso medio de la población según las comunas, las regiones y a nivel país. Para comenzar a familiarizarnos con estos datos realizaremos primero un preprocesamiento de los datos, para luego realizar una exploración visualizando las dimensiones, algunos estadísticos de utilidad y posibles relaciones o patrones que puedan ocultar los datos.
+
+**Pre Procesamiento: ** Para realizar el preprocesamiento primero se observaron los datos de los 3 dataframes con el objetivo de buscar datos inconsistentes o inexistentes dentro de los dataframes. Afortunadamente no se encontró ningún dato faltante. Posteriormente, fue necesario agregar una base de datos extra con las identificaciones de regiones y comunas, todas las bases fueron unificadas mediante el comando merge y según las llaves necesarias.
+
+**Dimensión y Estadísticos: ** Las dimensiones de los 3 dataframas con los que se trabajará para estudiar los ingresos corresponden a:
+
+* Dataframe por comunas: 2151 filas y 12 columnas
+* Dataframe por regiones: 146 filas y 12 columnas
+* Dataframe por país: 11 filas y 12 columnas
+
+Dentro de las 12 características o features que posee cada dataframe se considerarán principalmente:
+
+1. Año en que se recopila la información (year)
+2. Nombre de la comuna o región según el dataframe (comuna_name, geography_id)
+3. Ingreso medio ponderado (weighted_mean_income)
+4. Índice de gini (weighted_gini_income)
+
+Adicionalmente se calcularon algunas valores estadísticos para el ingreso medio ponderado y para el índice de gini.
+
+| Weighted_mean_income   | weighted_gini_income |
+| ---------------------- | -------------------  | 
+| min: 18092             | min: 0.2370          |    
+| 1st Qu.: 71131         | 1st qurt: 0.4080     |  
+| median: 109220         | median: 0.4510       | 
+| mean: 129951           | mean: 0.4555         | 
+| 3th Qu.: 161105        | 3th qurt: 0.4950     | 
+| max: 1343017           | max: 0.8130          |
+
+
+**Exploración Visual :** Para poder visualizar los datos de manera más clara se procedió a realizar disferentes gráficas, las cuales se muestran a continuación:
+
+![Boxplot Ingresos a lo largo de los años](../img/boxplot_ingresos_años.png)
+
+![Boxplot Ingresos según algunas comunas](../img/boxplot_ingresos_comunas.png)
+
+![Boxplot Ingresos según la región](../img/boxplot_ingresos_regiones.png)
+
+![Gráfico de ingresos a lo largo de los años](../img/ingresos_pais.png)
 
 
 

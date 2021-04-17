@@ -26,6 +26,8 @@ household <- household[ , colSums(is.na(household)) == 0]
 ```{r}
 unique(household$comuna_id)
 ```
+```{r}
+colnames(household)
 ```
 
 

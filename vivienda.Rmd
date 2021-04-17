@@ -23,6 +23,10 @@ household$comuna_id <- comuna_name_id$value[match(household$comuna_id,comuna_nam
 household <- household[complete.cases(household$comuna_id), ]
 household <- household[ , colSums(is.na(household)) == 0]
 ```
+```{r}
+unique(household$comuna_id)
+```
+```
 
 
 
@@ -62,3 +66,4 @@ ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], ae
   ggtitle("Tierra en uso
           por comuna")
 ```
+

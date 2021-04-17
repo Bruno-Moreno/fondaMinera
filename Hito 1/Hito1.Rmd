@@ -38,7 +38,7 @@ La motivación de haber escogido esta base de datos viene dada por el problema N
 
 # Exploración de Datos
 
-Para el análisis de datos primero se estudiará cada una de las dimensiones por separado, tratando de visualizar ciertas caracterìsticas o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
+Para el análisis de datos primero se estudiará cada una de las dimensiones por separado, tratando de visualizar ciertas características o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
 
 ## Ingresos
 
@@ -91,8 +91,10 @@ Finalmente, podemos considerar un análisis más fino sobre las comunas, conside
 Un dato prometedor con respecto a este análisis es el cambio que ocurrió en el año 2009 y esperamos poder relacionar la situación país con este fenómeno. También fue interesante notar que mediante el plan de salud, se pueden ver diferencias considerables al ingreso promedio. 
 
 ## Vivienda
+**Pre Procesamiento: ** En cuanto a los datos de vivienda lo primero que se realizó fue cambiar las ids de las comunas por sus nombres los cuales se encontraban en otra base de datos, sin embargo, solo habían 90 nombres asociados a 90 ids de un total de 346 comunas existentes en Chile. Lo mismo se realizo con la columna de 'zone_id' en donde se reemplazo la id según fuera una comuna urbana o rural.
+Posteriormente se procedió a eliminar las filas de las comunas que no poseen un nombre asociado a sus ids y se busco el nombre de las columnas que poseen algún NA en alguna entrada, para las cuales se reviso que significaban sus ids y se reemplazaron los NA con la id correspondiente a 'Sin Dato'. 
 
-
+**Dimensión y estadísticos : **
 ## Datos Bancarios
 
 

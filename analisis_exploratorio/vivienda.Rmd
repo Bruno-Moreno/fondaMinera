@@ -15,14 +15,23 @@ land_using_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 20
 ```
 
 
-```{r setup, include=FALSE}
+```{r}
 household <- household_for_db
 household$comuna_id <- comuna_id_id$id[match(household$comuna_id,comuna_id_id$value)]
 household$zone_id <- zone_id$value[match(household$zone_id, zone_id$id)]
 household$comuna_id <- comuna_name_id$value[match(household$comuna_id,comuna_name_id$id)]
 household <- household[complete.cases(household$comuna_id), ]
-household <- household[ , colSums(is.na(household)) == 0]
+colnames(household)[colSums(is.na(household)) > 0]
 ```
+```{r}
+household$family_member_owner[is.na(household$family_member_owner)] <- 3
+household$family_member_owner_2[is.na(household$family_member_owner_2)] <- 9
+household$subsidy_or_program[is.na(household$subsidy_or_program)] <- 5
+household$credit[is.na(household$credit)] <- 7
+household$paying_credit[is.na(household$paying_credit)] <- 5
+household$reason_to_share[is.na(household$reason_to_share)] <- 9
+```
+
 ```{r}
 unique(household$comuna_id)
 ```

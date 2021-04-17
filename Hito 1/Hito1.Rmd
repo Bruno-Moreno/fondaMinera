@@ -92,7 +92,7 @@ Un dato prometedor con respecto a este análisis es el cambio que ocurrió en el
 
 ## Vivienda
 **Pre Procesamiento: ** En cuanto a los datos de vivienda lo primero que se realizó fue cambiar las ids de las comunas por sus nombres los cuales se encontraban en otra base de datos, sin embargo, solo habían 90 nombres asociados a 90 ids de un total de 346 comunas existentes en Chile. Lo mismo se realizo con la columna de 'zone_id' en donde se reemplazo la id según fuera una comuna urbana o rural.
-Posteriormente se procedió a eliminar las filas de las comunas que no poseen un nombre asociado a sus ids y se busco el nombre de las columnas que poseen algún NA en alguna entrada, para las cuales se reviso que significaban sus ids y se reemplazaron los NA con la id correspondiente a 'Sin Dato'. 
+Posteriormente se procedió a eliminar los registros para los cuales las comunas no poseian un nombre asociado a sus ids, y en cuanto a las columnas se buscó el nombre de aquellas que poseían algún NA en alguna entrada, para las cuales se obtuvo sus nombres, se revisó que significaban sus ids y se reemplazaron los NA con la id correspondiente a 'Sin Dato'. 
 
 **Dimensión y estadísticos : **
 ## Datos Bancarios

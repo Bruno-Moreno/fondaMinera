@@ -5,25 +5,27 @@ date: "4/9/2021"
 output: html_document
 ---
 ```{r}
+#se abre datasets relevantes de vivienda
 library(readr)
-household_for_db <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/fondaMinera/dataset/household_for_db.csv")
-comuna_id_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/fondaMinera/dataset/ids_household/comuna_id_id.csv")
-comuna_name_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/fondaMinera/dataset/ids_household/comuna_name_id.csv")
-zone_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/fondaMinera/dataset/ids_household/zone_id.csv")
-water_source_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/fondaMinera/dataset/ids_household/water_source_id.csv")
-land_using_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/fondaMinera/dataset/ids_household/land_using_id.csv")
+household_for_db <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/household_for_db.csv")
+comuna_id_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/comuna_id_id.csv")
+comuna_name_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/comuna_name_id.csv")
+zone_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/zone_id.csv")
+water_source_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/water_source_id.csv")
+land_using_id <- read_csv("D:/OneDrive - Universidad de Chile/Primer Semestre 2021/Introducción a la Mineria de Datos/GitHub/fondaMinera/dataset/ids_household/land_using_id.csv")
 ```
 
 
 ```{r}
-household <- household_for_db
-household$comuna_id <- comuna_id_id$id[match(household$comuna_id,comuna_id_id$value)]
-household$zone_id <- zone_id$value[match(household$zone_id, zone_id$id)]
-household$comuna_id <- comuna_name_id$value[match(household$comuna_id,comuna_name_id$id)]
-household <- household[complete.cases(household$comuna_id), ]
-colnames(household)[colSums(is.na(household)) > 0]
+household <- household_for_db #se crea copia del dataframe original
+household$comuna_id <- comuna_id_id$id[match(household$comuna_id,comuna_id_id$value)] #se reasignan las id de las comunas
+household$comuna_id <- comuna_name_id$value[match(household$comuna_id,comuna_name_id$id)] #se reasignan las id de las comunas
+household$zone_id <- zone_id$value[match(household$zone_id, zone_id$id)] #se reasignan las ids de laz zonas con rural o urbano
+household <- household[complete.cases(household$comuna_id), ] #se eliminan las entradas sin comuna
+colnames(household)[colSums(is.na(household)) > 0] #se buscan los nombres de las columnas con NA
 ```
 ```{r}
+#se cambian los NA con una id que representará 'Sin Dato'
 household$family_member_owner[is.na(household$family_member_owner)] <- 3
 household$family_member_owner_2[is.na(household$family_member_owner_2)] <- 9
 household$subsidy_or_program[is.na(household$subsidy_or_program)] <- 5
@@ -33,36 +35,59 @@ household$reason_to_share[is.na(household$reason_to_share)] <- 9
 ```
 
 ```{r}
-unique(household$comuna_id)
+dim(household) #dimensiones del dataset a trabajar
+sum(is.na(household)) #No hay valores NA 
+household[,names(household)] <- lapply(household[,names(household)],factor) #se convierten a factor todas las col.
+summary(household) #se obtiene un sumario
 ```
-```{r}
-colnames(household)
-```
-
-
 
 ```{r}
-library(ggplot2)
+unique(household$comuna_id) #nombres de las comunas con datos
+colnames(household[-1:-2]) #nombre de los datos de las columnas
+```
+```{r}
 ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = walls_material)) +
-  geom_histogram(fill = "white", colour = "black", bins=length(walls_material_id$value)) +
+  geom_bar(fill = "white", colour = "black")+
   facet_grid(comuna_id ~ .) +
   coord_flip() +
-  ylab('frecuencia') + scale_x_discrete('tipos', limits=walls_material_id$value)+
+  ylab('frecuencia') +
+  scale_x_discrete('tipos', labels=walls_material_id$value) +
+  ggtitle("Materiales de las paredes
+          por comuna")
+```
+```{r}
+ggplot(household[household$zone_id %in% unique(household$zone_id),], aes(x = walls_material)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(zone_id ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('tipos', labels=walls_material_id$value) +
   ggtitle("Materiales de las paredes
           por comuna")
 ```
 ```{r}
 ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = water_source)) +
-  geom_histogram(fill = "white", colour = "black", bins=length(water_source_id$value)) +
+  geom_bar(fill = "white", colour = "black")+
   facet_grid(comuna_id ~ .) +
   coord_flip() +
-  ylab('frecuencia') + scale_x_discrete('tipos', limits=water_source_id$value)+
+  ylab('frecuencia') +
+  scale_x_discrete('tipos', labels=water_source_id$value)+
   ggtitle("Fuente de agua por comuna")
 ```
 ```{r}
+ggplot(household[household$zone_id %in% unique(household$zone_id),], aes(x = water_source)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(zone_id ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('tipos', labels=water_source_id$value)+
+  ggtitle("Fuente de agua por
+          tipo de zona")
+```
+```{r}
 ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = rooms)) +
-  geom_histogram(fill = "white", colour = "black", bins=length(unique(household$rooms))) +
-  facet_grid(comuna_id ~ .) +
+  geom_bar(fill = "white", colour = "black") +
+  facet_grid(. ~ comuna_id) +
   coord_flip() +
   xlab('cantidad de habitaciones') +
   ylab('frecuencia') +
@@ -70,10 +95,10 @@ ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], ae
 ```
 ```{r}
 ggplot(household[household$comuna_id %in% unique(household$comuna_id)[1:3],], aes(x = land_using)) +
-  geom_histogram(fill = "white", colour = "black", bins=length(land_using_id$value)) +
+  geom_bar(fill = "white", colour = "black") +
   facet_grid(. ~ comuna_id) +
   coord_flip() +
-  ylab('frecuencia') + scale_x_discrete('tipos', limits=land_using_id$value)+
+  ylab('frecuencia') + scale_x_discrete('tipos', labels=land_using_id$value)+
   ggtitle("Tierra en uso
           por comuna")
 ```

@@ -40,13 +40,54 @@ La motivación de haber escogido esta base de datos viene dada por el problema N
 
 Para el análisis de datos primero se estudiará cada una de las dimensiones por separado, tratando de visualizar ciertas características o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
 
-## Ingresos
 
 * Preprocesamiento necesario
 * Dimension, algunos estadísticos importantes 
 * descripción de los parámetros (columnas) consideradas
 * laja vs quilicura vs puente alto vs las condes 
 * region metropolitana, biobio, valpo , Maule 
+
+
+## Ingresos
+
+En el ámbito de ingresos se tienen 3 datasets con información acerca del ingreso medio de la población según las comunas, las regiones y a nivel país. Para comenzar a familiarizarnos con estos datos realizaremos primero un preprocesamiento de los datos, para luego realizar una exploración visualizando las dimensiones, algunos estadísticos de utilidad y posibles relaciones o patrones que puedan ocultar los datos.
+
+**Pre Procesamiento: ** Para realizar el preprocesamiento primero se observaron los datos de los 3 dataframes con el objetivo de buscar datos inconsistentes o inexistentes dentro de los dataframes. Afortunadamente no se encontró ningún dato faltante. Posteriormente, fue necesario agregar una base de datos extra con las identificaciones de regiones y comunas, todas las bases fueron unificadas mediante el comando merge y según las llaves necesarias.
+
+**Dimensión y Estadísticos: ** Las dimensiones de los 3 dataframas con los que se trabajará para estudiar los ingresos corresponden a:
+
+* Dataframe por comunas: 2151 filas y 12 columnas
+* Dataframe por regiones: 146 filas y 12 columnas
+* Dataframe por país: 11 filas y 12 columnas
+
+Dentro de las 12 características o features que posee cada dataframe se considerarán principalmente:
+
+1. Año en que se recopila la información (year)
+2. Nombre de la comuna o región según el dataframe (comuna_name, geography_id)
+3. Ingreso medio ponderado (weighted_mean_income)
+4. Índice de gini (weighted_gini_income)
+
+Adicionalmente se calcularon algunas valores estadísticos para el ingreso medio ponderado y para el índice de gini.
+
+| Weighted_mean_income   | weighted_gini_income |
+| ---------------------- | -------------------  | 
+| min: 18092             | min: 0.2370          |    
+| 1st Qu.: 71131         | 1st qurt: 0.4080     |  
+| median: 109220         | median: 0.4510       | 
+| mean: 129951           | mean: 0.4555         | 
+| 3th Qu.: 161105        | 3th qurt: 0.4950     | 
+| max: 1343017           | max: 0.8130          |
+
+
+**Exploración Visual :** Para poder visualizar los datos de manera más clara se procedió a realizar disferentes gráficas, las cuales se muestran a continuación:
+
+![Boxplot Ingresos a lo largo de los años](../img/boxplot_ingresos_años.png)
+
+![Boxplot Ingresos según algunas comunas](../img/boxplot_ingresos_comunas.png)
+
+![Boxplot Ingresos según la región](../img/boxplot_ingresos_regiones.png)
+
+![Gráfico de ingresos a lo largo de los años](../img/ingresos_pais.png)
 
 
 
@@ -129,30 +170,58 @@ Posteriormente se procedió a eliminar las filas de las comunas que no poseen un
 #Cargar Datasets Ingresos
 library(readr)
 
-df_ingresos_comunas<-read_csv("dataset/comuna_data_all.csv")
-df_ingresos_region<-read_csv("dataset/region_data_all.csv")
-df_ingresos_country<-read_csv("dataset/country_data_all.csv")
+df_ingresos_comunas<-read_csv("../dataset/comuna_data_all.csv")
+df_ingresos_region<-read_csv("../dataset/region_data_all.csv")
+df_ingresos_country<-read_csv("../dataset/country_data_all.csv")
 
-comunas_id<- read_csv("dataset/2017_06_27_comunas_datachile_fixed.csv")
-
+comunas_id<- read_csv("../dataset/2017_06_27_comunas_datachile_fixed.csv")
 ```
 
 ```{r}
+#Dimensiones de los datasets
+dim(df_ingresos_comunas)
+dim(df_ingresos_region)
+dim(df_ingresos_country)
+```
+
+```{r}
+#Se crea la columna con los nombres de las comunas y se reemplaza por "geography_id"
 library(tidyverse)
 df_nombres_comunas<-comunas_id[c('comuna_datachile_id','comuna_name')]
 df_nombres_comunas<-df_nombres_comunas[order(df_nombres_comunas$'comuna_datachile_id'),]
 df_nombres_comunas<-rename(df_nombres_comunas, geography_id=comuna_datachile_id)
 
 df = merge(x = df_nombres_comunas, y = df_ingresos_comunas, by = "geography_id")
+df <- select(df, -geography_id) 
 
+summary(df)
+```
+
+```{r}
+#comuna_data_all
 filtro <- df %>%
-    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Lo Prado') | df$comuna_name== 'Quilicura') 
+    filter((df$comuna_name == 'Las Condes' | df$comuna_name=='Laja') | (df$comuna_name== 'Quilicura') | df$comuna_name== 'Puente Alto') 
 
 boxplot(df$weighted_mean_income ~ df$year,ylim=c(18000,1500000), xlab = 'Year' , ylab = 'mean_income',main="Boxplot",col='dark blue')
 
-boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,300000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
+boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
 
 boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
+```
+
+```{r}
+#df_ingresos_region
+filtro <- df_ingresos_region %>%
+    filter(df_ingresos_region$geography_id == 8 )
+
+boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$year, xlab = 'Year' , ylab = 'mean_income',main="Ingresos v/s años",col='dark blue')
+
+boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$geography_id, xlab = 'Regiones' , ylab = 'mean_income',main="Ingresos por región",col='sky blue')
+```
+
+```{r}
+#df_ingresos_country
+plot(df_ingresos_country$weighted_mean_income ~ df_ingresos_country$year,ylim=c(0,350000), xlab = 'Year' , ylab = 'mean_income',main="Ingresos v/s años",col='dark blue',type='l')
 ```
 
 ### Dataset Salud

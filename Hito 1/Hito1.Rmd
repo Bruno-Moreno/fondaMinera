@@ -31,13 +31,14 @@ Su objeto de estudio son los hogares que habitan las viviendas particulares que 
 
 Además del contexto nacional, la Encuesta Casen considera como dominios de estudio las regiones, y sus ámbitos urbano y rural.
 
-Para este proyecto trabajaremos con la base de datos dispuesta por CASEN y recuperada de [datachile.io](https://es.datachile.io/about/data). El objetivo de este proyecto será estudiar esta base de datos y extraer información útil acerca del contexto nacional y su evolución a lo largo de los años en los ámbitos de ingresos, vivienda, salud y datos bancarios. Para esto y utilizando herramientas de minería de datos intentaremos caracterizar grupos socioeconómicos en base a estas dimensiones y evidenciar la deficiente distribución de riquezas en el país.
+Para este proyecto se trabajará con la base de datos dispuesta por CASEN y recuperada de [datachile.io](https://es.datachile.io/about/data). El objetivo de este proyecto será estudiar esta base de datos y extraer información útil acerca del contexto nacional y su evolución a lo largo de los años en los ámbitos de ingresos, vivienda, salud y datos bancarios.
+La motivación de haber escogido esta base de datos viene dada por el problema Nacional que ha acontecido a Chile desde el estallido social en donde las quejas y problemas acumulados durante años por la población mas vulnerable han salido a flote. Es por esto que con toda la información que entrega la base de datos de CASEN y utilizando herramientas de minería de datos se intentará caracterizar grupos socioeconómicos en base a las dimensiones antes mencionadas y evidenciar la deficiente distribución de riquezas en el país y cómo se pueden ver manifestadas todas las demandas sociales en estos datos.
 
 
 
 # Exploración de Datos
 
-Para el análisis de datos primero estudiaremos cada una de las dimensiones por separado, tratando de visualizar ciertas caracterìsticas o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
+Para el análisis de datos primero se estudiará cada una de las dimensiones por separado, tratando de visualizar ciertas caracterìsticas o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
 
 ## Ingresos
 

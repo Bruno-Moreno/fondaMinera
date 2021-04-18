@@ -133,16 +133,21 @@ Un dato prometedor con respecto a este análisis es el cambio que ocurrió en el
 
 ## Vivienda
 **Pre Procesamiento: ** En cuanto a los datos de vivienda lo primero que se realizó fue cambiar las ids de las comunas por sus nombres los cuales se encontraban en otra base de datos, sin embargo, solo habían 90 nombres asociados a 90 ids de un total de 346 comunas existentes en Chile. Lo mismo se realizo con la columna de 'zone_id' en donde se reemplazo la id según fuera una comuna urbana o rural.
+
 Posteriormente se procedió a eliminar las filas de las comunas que no poseen un nombre asociado a sus ids y se busco el nombre de las columnas que poseen algún NA en alguna entrada, para las cuales se reviso que significaban sus ids y se reemplazaron los NA con la id correspondiente a 'Sin Dato'. 
 
-**Dimensión y estadísticos : ** Post pre-procesamiento el dataset resulto en 207695 filas y 46 columnas. Cada fila representa una vivienda encuestada y cada columna una pregunta de la encuesta (a excepción de las 3 primeras que representan la región, comuna y el tipo de zona en que se encuentra la vivienda). De estas 43 columnas las más importantes y que guardan relación con la motivación de este proyecto son; "household_type" (tipo de vivienda); "walls_material", "floor_material", "ceiling_material" (materiales de la vivienda); "household_sq_meters" (metros cuadrados); "household_using" (origen de la vivienda usada); "subsidy_or_program" (programa de subsidio); "credit" (crédito hipotecario usado); "paying_credit" (estado del pago del crédito); "water_distribution" (distribución del agua); "waste_disposal" (tipo de baños); "rooms" (habitaciones); "bathrooms" (baños); "families_in_household" (familias en la vivienda); "less_than_8_blocks_public_transport" (transporte publico a menos de 8 cuadras); "less_than_20_blocks_educational_center" (centro educacional a menos de 20 cuadras); "less_than_20_blocks_health_center" (centro médico a menos de 20 cuadras); "less_than_20_blocks_pharmacy" (farmacia a menos de 20 cuadras).
+**Dimensión y estadísticos : ** Post pre-procesamiento el dataset resulto en 207695 filas y 46 columnas. Cada fila representa una vivienda encuestada y cada columna una pregunta de la encuesta (a excepción de las 3 primeras que representan la región, comuna y el tipo de zona en que se encuentra la vivienda).
+
+De estas 43 columnas las más importantes y que guardan relación con la motivación de este proyecto son; "household_type" (tipo de vivienda); "walls_material", "floor_material", "ceiling_material" (materiales de la vivienda); "household_sq_meters" (metros cuadrados); "household_using" (origen de la vivienda usada); "subsidy_or_program" (programa de subsidio); "credit" (crédito hipotecario usado); "paying_credit" (estado del pago del crédito); "water_distribution" (distribución del agua); "waste_disposal" (tipo de baños); "rooms" (habitaciones); "bathrooms" (baños); "families_in_household" (familias en la vivienda); "less_than_8_blocks_public_transport" (transporte publico a menos de 8 cuadras); "less_than_20_blocks_educational_center" (centro educacional a menos de 20 cuadras); "less_than_20_blocks_health_center" (centro médico a menos de 20 cuadras); "less_than_20_blocks_pharmacy" (farmacia a menos de 20 cuadras).
 
 Como la mayoría de los atributos de este dataset son de tipo cualitativo (categóricos), solo se pueden extraer estadísticas en base a las frecuencias de las categorías, a continuación se muestran algunas visualizaciones de gráficos de barras a nivel comunal, regional y por tipo de zona para algunos de los atributos más importantes en base a la motivación del proyecto:
 
-![Material de las paredes por Región](../img/walls_material_comunas.png)
+![Material de las paredes por Comuna](../img/walls_material_comunas.png)
 En la visualización anterior resulta interesante notar que en la comuna de Las Condes predomina el hormigón armado en las construcciones y casi no hay viviendas con tabique armado, mientras que en las otras comunas predomina la abañilería.
+
 ![Existencia de centros médicos en menos de 20 cuadras por zona](../img/centros_medicos_zona.png)
 En esta visualización se puede notar los problemas que sufren las viviendas rurales en el ámbito de salud, en dodne la amyoria de ellas no tiene centros médicos en menos de 20 cuadras y comunmente deben desplazarse grandes distancias para llegar a alguno.
+
 ![Tipo de subsidio o programa por región](../img/subsidy_or_program_region.png)
 En esta última visualización se puede ver que en la Región Metropolitana a diferencia de otras regiones existe un gran uso del subsidio habitacional con y sin crédito, mientras que en las regiones suele predominar tener viviendas en un sitio con recursos propios.
 

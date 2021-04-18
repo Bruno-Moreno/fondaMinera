@@ -6,10 +6,10 @@ output: html_notebook
 ```{r}
 library(readr)
 #Iimportamos los dataset de salud 
-healthsystem <- read_csv("~/GitHub/fondaMinera/dataset/healthsystem.csv")
-healthsystem_ids <- read_csv("~/GitHub/fondaMinera/dataset/healthsystem_ids.csv")
-healthsystemgroup_ids <- read_csv("~/GitHub/fondaMinera/dataset/healthsystemgroup_ids.csv")
-comunas <- read_csv("~/GitHub/fondaMinera/dataset/2017_06_27_comunas_datachile_fixed.csv")
+healthsystem <- read_csv("../dataset/healthsystem.csv")
+healthsystem_ids <- read_csv("../dataset/healthsystem_ids.csv")
+healthsystemgroup_ids <- read_csv("../dataset/healthsystemgroup_ids.csv")
+comunas <- read_csv("../dataset/2017_06_27_comunas_datachile_fixed.csv")
 ```
 
 ```{r}

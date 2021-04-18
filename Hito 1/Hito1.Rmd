@@ -168,6 +168,47 @@ Como se puede ver, existe completa correlación entre los materiales premium uti
 
 ## Datos Bancarios
 
+El análisis de bancarización forma parte de la encuesta de caracterización económica y social, la cual contiene un set de temas financieros, lo cual permite analizar en términos generales la evolución de la bancarización a nivel regional y comunal en Chile, con la posibilidad de contrastar los datos con respecto a los años 2011, 2013 y 2015. Los datos muestran una evolución global de la bancarización chilena de acuerdo a las siguientes características:
+
+Tarjeta de Débito: Si la persona encuestada posee o no Tarjeta de Débito (debit_card_id)
+Tarjeta de Crédito: Si la persona encuestada posee o no Tarjeta de de alguna entidad Bancaria (credit_card_bank_id)
+Tarjeta de Retail: Si la persona encuestada posee o no Tarjeta de alguna entidad de tipo Retail (credit_card_store_id)
+Chequera: Si la persona encuestada posee o no Chequera (checks_id)
+Línea de Crédito: Si la persona encuestada posee o no Línea de Crédito (credit_line_id)
+
+| Año           | Región                      | Comuna            | Datos                      |
+|---------------|-----------------------------|-------------------|----------------------------|
+| 2011: 105821  | Región Metropolitana: 69982 | Quilicura: 2329   | Credit_card_bank: 54886    |
+| 2013: 119802  | Región de Valparaíso: 35602 | Puente Alto: 7034 | Debit_card: 164680         |
+| 2015: 158449  | Región del Biobío: 44270    | Las Condes: 4822  | Credit_card_retail: 120877 |
+|               | Región del Maule: 24227     | Laja: 935         | Checks: 32991              |
+|               |                             |                   | Credit_card_line: 32221    |
+
+En cuanto a la exploración, se realizó un enfoque de 3 aspectos principales buscando caracterizar la cantidad de personas que poseen algún tipo de productos financiero con a lo largo de los años, diferenciar la cantidad de personas que utilizan los diferentes productos y por último cómo se caracterizan comunas de diferente status social en el uso de los diferentes productos bancarios. Para esto se realizó una exploración dentro del data modificando sus características de tal manera que se pudiesen filtar y contar los datos necesarios para la exploración. Así, se obtuvieron los siguientes resultados visuales: 
+
+
+![Productos Financieros en General](../img/bancarios_productos.png)
+
+Con esto es posible ver la curva de crecimiento que tiene la posesión de productos financieros a lo largo de los años. Además se tiene que la bancarización en Chile ya mantiene niveles medio-altos al contar con cerca del 67% de la población con algún tipo de producto bancario para su uso personal.
+
+
+
+![Uso de diferentes productos a lo largo de los años](../img/bancarios_years.png)
+
+Dentro de este gráfico es posible realizar varias visualizaciones, y para esto podemos ordenar las caracterizaciones:
+-Tarjeta Débito: Es posible ver que resulta ser el producto más utilizado y con mayor tasa de crecimiento con respecto a su uso. Para el 2015, ya casi el 56% de la población analizada cuenta con tarjeta débito, las cuales sirven generalmente para realizar compras y pagos al contado sin la necesidad de portar efectivo.
+-Tarjeta Crédito: Este producto cuenta con un desarrollo mucho menor al que muestra la tarjeta débito, puesto que no llega a alcanzar nisiquiera el 20% de uso en la población chilena, pero aún así cuenta con un aumento en sus tasas de uso no menor a lo largo de los años.
+-Tarjeta Retail: Esta tarjeta aporta con un gran porcentaje de uso en chile según los datos, entendiendo que las personas que adquieren tarjetas de crédito tienden a preferir las del sector Retail más que la de entidades Bancarias. Cabe destacar además que la tarjeta Retail cuenta con un comportamiento totalmente diferente al del resto de los productos en cuanto a su desarrollo a lo largo de los años, el cual podría valer la pena de estudiar, dado su particularidad.
+-Chequera: La chequera cuenta con un porcentaje de uso bastante bajo en la población lo cual puede estar de alguna manera relacionado a la preferencia que tienen las personas a la tarjeta de débito como remplazo al pago en contado del efectivo y los cheques. Dado el desarrollo y crecimiento de las tarjetas de débito, se podría esperar que las chequeras comiencen a decaer sus porcentajes de uso en algún momento.
+-Línea de Crédito: Junto con las chequeras, la línea de crédito se caracteriza por ser un producto de muy bajo uso en la población, lo cual puede estar ligado a algún factor de limitación o de preferencias de los chilenos.
+
+
+![Uso de diferentes productos según diferentes comunas](../img/bancarios_comunas.png)
+
+Por último, esta caracterización visual permite inferir diferentes características: 
+-En primer lugar es claro que la utilización de productos bancarios en general, vista en la primera imagen, se puede relacionar directamente con las comunas de mayores ingresos.
+-Otra característica importante a destacar es la gran diferencia que existe entre la comuna de las condes y el resto con respecto al uso de Tarjetas de Crédito, Líneas de Crédito y Chequeras, dando a entender que el uso de ellas se podría encontrar limitado por ciertas características económicas imporantes.
+-En las tarjetas de crédito retail y tarjetas de débito es posible ver unos porcentajes no tan cesgados de uso como el resto de los productos, pudiendo explicar la globalización que está alcanzando el uso y desarrollo de estos dos productos a nivel regional (lo cual también se podría extender a nivel nacional).
 
 # Preguntas y Problemas
 
@@ -188,8 +229,15 @@ Como se puede ver, existe completa correlación entre los materiales premium uti
 
 
 
+# Contribuciones
 
-
+| Integrantes     | Aporte en el proyecto (Hito 1)                                                                                                                    |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nicolás Gatica  | Análisis de datos bancarios (tablas y gráficas) , confección del reporte general sección bancaria y  búsqueda del dataset, video de presentación. |
+| Cristóbal Igor  | Análisis de datos de vivienda (tablas y gráficas), confección del reporte general sección vivienda y búsqueda del dataset, video de presentación. |
+| Nelson Moreno   | Análisis de datos de salud (tablas y gráficas) , confeción del reporte general sección salud y  búsqueda del dataset, video de presentación       |
+| Emilio Roa      | Análisis de datos de ingreso (tablas y gráficas) , confección del reporte sección ingreso y búsqueda del dataset, video de presentación.          |
+| Thomas Waldura  | Confección de la presentación (diapositivas), confección del reporte sección introducción y  búsqueda del dataset.                                |
 
 
 
@@ -427,6 +475,67 @@ ggplot(data = isapre_region , aes(x = year , y = relativo , color = region_name)
   
 ```
 
+### Prepocesamiento Datos Bancarios
+```{r}
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+
+banking_products <- read_csv("~/GitHub/fondaMinera/dataset/banking_products.csv")
+banking_products_id <- read_csv("~/GitHub/fondaMinera/dataset/banking_products_id.csv")
+comunas <- read_csv("~/GitHub/fondaMinera/dataset/2017_06_27_comunas_datachile_fixed.csv")
+
+dim(banking_products) #La dimensión es de 527089 x 9
+sum(is.na(banking_products)) #No hay valores NA 
+summary(banking_products)
+```
+
+```{r}
+#Unificamos las id's en el dataset general
+temp <- merge(x = banking_products , y = comunas , by= "comuna_datachile_id")
+#Eliminamos las columnas con las id's de las que no tomaremos uso
+sistema_bancario <- temp[,-c(1,10,12,13)]
+#Eliminamos las variables del sistema que no utilizaremos
+remove(temp, banking_products, banking_products_id, comunas)
+```
+
+```{r}
+#Algunos datos
+dim(sistema_bancario) #La dimensión es de 527089 x 10
+sum(is.na(sistema_bancario)) #No hay valores nan 
+summary(sistema_bancario)
+```
+
+```{r}
+#No existen valores nan dentro del dataframe, pero por inferencia es posible identificar que ciertos valores etiquetados son nan con una etiqueta numérica, es por esto que lo cambiamos para poder eliminarlos.
+
+#Transformación de los datos que no cuentan con información útil según su etiqueta
+sistema_bancario$debit_card_id[sistema_bancario$debit_card_id == 0] <- NA
+sistema_bancario$credit_card_bank_id[sistema_bancario$credit_card_bank_id == 0] <- NA
+sistema_bancario$credit_card_store_id[sistema_bancario$credit_card_store_id == 0] <- NA
+sistema_bancario$credit_line_id[sistema_bancario$credit_line_id == 0] <- NA
+sistema_bancario$checks_id[sistema_bancario$checks_id == 0] <- NA
+
+#Eliminación de datos tipo nan
+sistema_bancario <- na.omit(sistema_bancario) 
+dim(sistema_bancario) #La dimensión sin la valores nan es de 384072 x 10
+```
+
+```{r}
+#Cambiamos el tipo de dato de ciertas columnas
+sistema_bancario$year = as.factor(sistema_bancario$year)
+sistema_bancario$region_name = as.factor(sistema_bancario$region_name)
+sistema_bancario$comuna_name = as.factor(sistema_bancario$comuna_name)
+
+head(sistema_bancario)
+```
+
+```{r}
+#Cantidad de datos que ofrecen los diferentes años
+total2011 <- sum(sistema_bancario$year == 2011) #
+total2013 <- sum(sistema_bancario$year == 2013) #
+total2015 <- sum(sistema_bancario$year == 2015) #
 
 # Contribuciones
 

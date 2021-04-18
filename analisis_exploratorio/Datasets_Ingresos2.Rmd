@@ -58,7 +58,8 @@ filtro <- df %>%
 
 boxplot(df$weighted_mean_income ~ df$year,ylim=c(18000,1500000), xlab = 'Year' , ylab = 'mean_income',main="Boxplot",col='dark blue')
 
-boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
+boxplot(df$weighted_gini_income ~ df$year, xlab = 'Year' , ylab = 'gini_income',main="Boxplot",col='dark blue')
+
 
 boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
 
@@ -91,6 +92,8 @@ boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$geography_i
 
 
 plot(df_ingresos_country$weighted_mean_income ~ df_ingresos_country$year,ylim=c(0,350000), xlab = 'Year' , ylab = 'mean_income',main="Ingresos v/s años",col='dark blue',type='l')
+
+plot(df_ingresos_country$weighted_gini_income ~ df_ingresos_country$year, xlab = 'Year' , ylab = 'gini_income',main="Índice de Gini",col='dark blue',type='l')
 
 
 

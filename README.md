@@ -7,7 +7,7 @@
   - Nicolás Gatica - Ingeniería Civil Eléctrica
   - Cristóbal Igor - Ingeniería Civil Eléctrica
   - Nelson Moreno - Ingeniería Civil Matemática
-  - Emilio Roa - Ingeniería Civil Matemática 
+  - Emilio Roa - Ingeniería Civil Eléctrica 
   - Thomas Waldura - ¿?
 
 ## Contenido: 

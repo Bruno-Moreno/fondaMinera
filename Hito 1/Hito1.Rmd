@@ -41,13 +41,6 @@ La motivación de haber escogido esta base de datos viene dada por el problema N
 Para el análisis de datos primero se estudiará cada una de las dimensiones por separado, tratando de visualizar ciertas características o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
 
 
-* Preprocesamiento necesario
-* Dimension, algunos estadísticos importantes 
-* descripción de los parámetros (columnas) consideradas
-* laja vs quilicura vs puente alto vs las condes 
-* region metropolitana, biobio, valpo , Maule 
-
-
 ## Ingresos
 
 En el ámbito de ingresos se tienen 3 datasets con información acerca del ingreso medio de la población según las comunas, las regiones y a nivel país. Para comenzar a familiarizarnos con estos datos realizaremos primero un preprocesamiento de los datos, para luego realizar una exploración visualizando las dimensiones, algunos estadísticos de utilidad y posibles relaciones o patrones que puedan ocultar los datos.
@@ -212,8 +205,6 @@ Por último, esta caracterización visual permite inferir diferentes caracterís
 
 # Preguntas y Problemas
 
-
-* **¿?**
 
 * **¿Existe alguna relación entre el ingreso promedio de una comuna y el plan de salud mayoritario de la misma? Y de ser así, ¿Que relación guardan?**
 

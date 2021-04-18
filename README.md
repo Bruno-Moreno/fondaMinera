@@ -4,11 +4,11 @@
 
 
 ## Integrantes:
-  - Nicolás Gatica
-  - Cristóbal Igor
-  - Nelson Moreno
-  - Emilio Roa
-  - Thomas Waldura
+  - Nicolás Gatica - Ingeniería Civil Eléctrica
+  - Cristóbal Igor - Ingeniería Civil Eléctrica
+  - Nelson Moreno - Ingeniería Civil Matemática
+  - Emilio Roa - Ingeniería Civil Matemática 
+  - Thomas Waldura - ¿?
 
 ## Contenido: 
  - En [Dataset](dataset/) se encuentra la base de datos que utilizamos para este proyecto.

@@ -9,3 +9,9 @@
   - Nelson Moreno
   - Emilio Roa
   - Thomas Waldura
+
+## Contenido: 
+ - En [Dataset](dataset/) se encuentra la base de datos que utilizamos para este proyecto.
+ - En [Hito 1](Hito%201/) se encuentra el informe y código utilizado para generarlo.
+ - En [Análisis exploratorio](analisis_exploratorio/) se encuentran los scripts que generan las imágenes y datos de interés para los distintos dataset.
+ - En [Img](img/) encontramos una copia de todas las imágenes utilizadas. 

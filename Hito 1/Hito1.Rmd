@@ -483,7 +483,7 @@ ggplot(data = isapre_region , aes(x = year , y = relativo , color = region_name)
   
 ```
 
-### Datoset Vivienda
+### Dataset Vivienda
 ```{r}
 library(readr)
 library(tidyverse)
@@ -594,7 +594,7 @@ comunas_stgo <- unique(household[household$region_name=='Región Metropolitana S
 table(household$floor_material,household$walls_material, dnn=c('material del piso','material de las paredes'))
 ```
 
-### Datoset Bancarios
+### Dataset Bancarios
 ```{r}
 library(readr)
 library(dplyr)
@@ -651,6 +651,18 @@ head(sistema_bancario)
 total2011 <- sum(sistema_bancario$year == 2011) #
 total2013 <- sum(sistema_bancario$year == 2013) #
 total2015 <- sum(sistema_bancario$year == 2015) #
+
+#Cantidad de datos que ofrecen las diferentes comunas
+totalQ <- sum(sistema_bancario$comuna_name == 'Quilicura') #
+totalPA <- sum(sistema_bancario$comuna_name == 'Puente Alto') #
+totalL <- sum(sistema_bancario$comuna_name == 'Laja') #
+totalLC <- sum(sistema_bancario$comuna_name == 'Las Condes') #
+
+#Cantidad de datos que ofrecen las diferentes regiones
+totalValpo <- sum(sistema_bancario$region_name == 'Valparaíso') #
+totalRM <- sum(sistema_bancario$region_name == 'Región Metropolitana Santiago') #
+totalM <- sum(sistema_bancario$region_name == 'Maule') #
+totalBB <- sum(sistema_bancario$region_name == 'Bío Bío') #
 ```
 
 

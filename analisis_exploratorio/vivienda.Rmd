@@ -56,15 +56,7 @@ sum(is.na(household)) #No hay valores NA
 household[,names(household)] <- lapply(household[,names(household)],factor) #se convierten a factor todas las col.
 summary(household) #se obtiene un sumario
 ```
-| Región                               | Comuna            | Zona           |
-|--------------------------------------|-------------------|----------------|
-| Región Metropolitana Santiago: 48663 | Copiapó: 8959     | rural: 36903   |
-| Bío Bío: 26880                       | Puente Alto: 5407 | urbano: 170792 |
-| O'Higgins: 18035                     | Conchalí: 4961    |                |
-| Araucanía: 16941                     | Los Ángeles: 4956 |                |
-| Valparaíso: 16111                    | La Serena: 4112   |                |
-| Los Lagos: 15263                     | El Bosque: 3670   |                |
-| (Other): 65802                       | (Other): 175630   |                |
+
 ```{r}
 unique(household$comuna_name) #nombres de las comunas con datos
 unique(household$region_name) #nombres de las regiones con datos

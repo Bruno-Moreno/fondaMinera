@@ -129,11 +129,22 @@ Un dato prometedor con respecto a este análisis es el cambio que ocurrió en el
 
 Posteriormente se procedió a eliminar las filas de las comunas que no poseen un nombre asociado a sus ids y se busco el nombre de las columnas que poseen algún NA en alguna entrada, para las cuales se reviso que significaban sus ids y se reemplazaron los NA con la id correspondiente a 'Sin Dato'. 
 
-**Dimensión y estadísticos : ** Post pre-procesamiento el dataset resulto en 207695 filas y 46 columnas. Cada fila representa una vivienda encuestada y cada columna una pregunta de la encuesta (a excepción de las 3 primeras que representan la región, comuna y el tipo de zona en que se encuentra la vivienda).
+**Dimensión y estadísticos: ** Post pre-procesamiento el dataset resulto en 207695 filas y 46 columnas. Cada fila representa una vivienda encuestada y cada columna una pregunta de la encuesta (a excepción de las 3 primeras que representan la región, comuna y el tipo de zona en que se encuentra la vivienda).
 
 De estas 43 columnas las más importantes y que guardan relación con la motivación de este proyecto son; "household_type" (tipo de vivienda); "walls_material", "floor_material", "ceiling_material" (materiales de la vivienda); "household_sq_meters" (metros cuadrados); "household_using" (origen de la vivienda usada); "subsidy_or_program" (programa de subsidio); "credit" (crédito hipotecario usado); "paying_credit" (estado del pago del crédito); "water_distribution" (distribución del agua); "waste_disposal" (tipo de baños); "rooms" (habitaciones); "bathrooms" (baños); "families_in_household" (familias en la vivienda); "less_than_8_blocks_public_transport" (transporte publico a menos de 8 cuadras); "less_than_20_blocks_educational_center" (centro educacional a menos de 20 cuadras); "less_than_20_blocks_health_center" (centro médico a menos de 20 cuadras); "less_than_20_blocks_pharmacy" (farmacia a menos de 20 cuadras).
 
-Como la mayoría de los atributos de este dataset son de tipo cualitativo (categóricos), solo se pueden extraer estadísticas en base a las frecuencias de las categorías, a continuación se muestran algunas visualizaciones de gráficos de barras a nivel comunal, regional y por tipo de zona para algunos de los atributos más importantes en base a la motivación del proyecto:
+Por último, en la siguiente tabla se muestran las cantidad de encuestas por Región, Comuna y Zona:
+| Región                               | Comuna            | Zona           |
+|--------------------------------------|-------------------|----------------|
+| Región Metropolitana Santiago: 48663 | Copiapó: 8959     | rural: 36903   |
+| Bío Bío: 26880                       | Puente Alto: 5407 | urbano: 170792 |
+| O'Higgins: 18035                     | Conchalí: 4961    |                |
+| Araucanía: 16941                     | Los Ángeles: 4956 |                |
+| Valparaíso: 16111                    | La Serena: 4112   |                |
+| Los Lagos: 15263                     | El Bosque: 3670   |                |
+| (Other): 65802                       | (Other): 175630   |                |
+
+**Exploración visual: ** Como la mayoría de los atributos de este dataset son de tipo cualitativo (categóricos), solo se pueden extraer estadísticas en base a las frecuencias de las categorías, a continuación se muestran algunas visualizaciones de gráficos de barras a nivel comunal, regional y por tipo de zona para algunos de los atributos más importantes en base a la motivación del proyecto:
 
 ![Material de las paredes por Comuna](../img/walls_material_comunas.png)
 En la visualización anterior resulta interesante notar que en la comuna de Las Condes predomina el hormigón armado en las construcciones y casi no hay viviendas con tabique armado, mientras que en las otras comunas predomina la abañilería.
@@ -155,9 +166,10 @@ Además de estos gráficos de barras para distintos atributos, se pueden obtener
 | 4                 | 489                     | 4875  | 2440  | 405  | 467  | 24 |
 | 5                 | 361                     | 3788  | 3508  | 784  | 669  | 36 |
 | 6                 | 0                       | 5     | 59    | 64   | 106  | 58 |
+
 En donde las categorias de los materiales de las paredes son; 1. "hormigón armado"; 2. "albañilería (bloque cemento, piedra o ladrillo)"; 3. "tabique forrado por ambas caras (madera, acero, lata, u otro)"; 4. "tabique sin forro interior (madera u otro)"; 5. "adobe, barro, quincha, pirca u otro artesanal tradicional"; 6. "materiales precarios o de desecho (cartón, latas, sacos, plásticos, etc.)". Mientras que las categorias del material del suelo son; 1. "parquet, madera, piso flotante o similar"; 2. "cerámico, porcelanato, flexit o similar"; 3. alfombra o cubrepiso; 4. baldosa de cemento; 5. radier; 6. tierra.
 
-Como se puede ver, existe completa correlación entre los materiales premium utilizados, teniendo que las viviendas con hormigon armado suelen tener piso flotante o cerámico. Mientras que por otra parte las viviendas con piso tipo radier suelen ser de albañilería y tabique.
+Como se puede ver, existe completa correlación entre los materiales premium utilizados, teniendo que las viviendas con hormigón armado suelen tener piso flotante o cerámico. Mientras que por otra parte las viviendas con piso tipo radier suelen ser de albañilería y tabique.
 
 ## Datos Bancarios
 
@@ -218,6 +230,10 @@ Por último, esta caracterización visual permite inferir diferentes caracterís
 
 * **¿Qué variables pueden medir de mejor forma la inequidad del país?**
 
+* **¿Existe alguna relación entre la calidad de las viviendas y la comuna/región/zona a la que pertenece?**
+
+* **¿Cómo se relacionan los atributos de las viviendas con atributos de los ingresos y salud?**
+
 
 
 # Contribuciones
@@ -229,7 +245,9 @@ Por último, esta caracterización visual permite inferir diferentes caracterís
 | Nelson Moreno   | Análisis de datos de salud (tablas y gráficas) , confeción del reporte general sección salud y  búsqueda del dataset, video de presentación       |
 | Emilio Roa      | Análisis de datos de ingreso (tablas y gráficas) , confección del reporte sección ingreso y búsqueda del dataset, video de presentación.          |
 | Thomas Waldura  | Confección de la presentación (diapositivas), confección del reporte sección introducción y  búsqueda del dataset.                                |
+# Referencias
 
+Ministerio de Desarrollo Social (MDS), Encuesta de caracterización Socioeconómica Nacional (CASEN) 1990-2015, recuperado de [datachile.io](https://es.datachile.io/about/data).
 
 
 # Códigos de fuente utilizado para generar sus estadísticas y análisis
@@ -245,14 +263,12 @@ df_ingresos_country<-read_csv("../dataset/country_data_all.csv")
 
 comunas_id<- read_csv("../dataset/2017_06_27_comunas_datachile_fixed.csv")
 ```
-
 ```{r}
 #Dimensiones de los datasets
 dim(df_ingresos_comunas)
 dim(df_ingresos_region)
 dim(df_ingresos_country)
 ```
-
 ```{r}
 #Se crea la columna con los nombres de las comunas y se reemplaza por "geography_id"
 library(tidyverse)
@@ -265,7 +281,6 @@ df <- select(df, -geography_id)
 
 summary(df)
 ```
-
 ```{r}
 #comuna_data_all
 filtro <- df %>%
@@ -277,7 +292,6 @@ boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,500000), x
 
 boxplot(filtro$weighted_mean_income ~ filtro$comuna_name,ylim=c(18000,1500000), xlab = 'Comunas' , ylab = 'mean_income',main="Boxplot",col='sky blue')
 ```
-
 ```{r}
 #df_ingresos_region
 filtro <- df_ingresos_region %>%
@@ -287,14 +301,12 @@ boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$year, xlab 
 
 boxplot(df_ingresos_region$weighted_mean_income ~ df_ingresos_region$geography_id, xlab = 'Regiones' , ylab = 'mean_income',main="Ingresos por región",col='sky blue')
 ```
-
 ```{r}
 #df_ingresos_country
 plot(df_ingresos_country$weighted_mean_income ~ df_ingresos_country$year,ylim=c(0,350000), xlab = 'Year' , ylab = 'mean_income',main="Ingresos v/s años",col='dark blue',type='l')
 ```
 
 ### Dataset Salud
-
 ```{r}
 library(readr)
 #Iimportamos los dataset de salud 
@@ -303,7 +315,6 @@ healthsystem_ids <- read_csv("~/GitHub/fondaMinera/dataset/healthsystem_ids.csv"
 healthsystemgroup_ids <- read_csv("~/GitHub/fondaMinera/dataset/healthsystemgroup_ids.csv")
 comunas <- read_csv("~/GitHub/fondaMinera/dataset/2017_06_27_comunas_datachile_fixed.csv")
 ```
-
 ```{r}
 #Unificamos las id's en el dataset global 
 temp1 <- merge(x = healthsystem, y = healthsystem_ids, by = "health_system_id")
@@ -315,7 +326,6 @@ remove(temp1, temp2, healthsystem, healthsystem_ids , healthsystemgroup_ids , co
 #Cambiamos el nombre de esta variable
 sistema_salud[sistema_salud$health_system == 'Fuerzas Armadas, de Orden y Seguridad Pública',4] <- 'Fuerzas armadas'
 ```
-
 ```{r}
 #Cambiamos el tipo de dato de ciertas columnas
 sistema_salud$year = as.factor(sistema_salud$year)
@@ -324,14 +334,12 @@ sistema_salud$comuna_name = as.factor(sistema_salud$comuna_name)
 sistema_salud$health_system = as.factor(sistema_salud$health_system)
 head(sistema_salud)
 ```
-
 ```{r}
 #Algunos datos
 dim(sistema_salud) #La dimensión es de 1746044 x 11
 sum(is.na(sistema_salud)) #No hay valores NA 
 summary(sistema_salud)
 ```
-
 ```{r}
 #Veamos la evolución de las distintas fonasas a lo largo de los años 
 library(dplyr)
@@ -342,7 +350,6 @@ plan_salud_ano <- plan_salud %>%
   rename(ano = `plan_salud$year` , plan_de_salud = `plan_salud$health_system`)
 head(plan_salud_ano)
 ```
-
 ```{r}
 #Frecuancia relativa 
 sum_2000 <-sum(plan_salud_ano$n[plan_salud_ano$ano=='2000'])
@@ -381,7 +388,6 @@ plan_salud_ano$porcentaje <- mapply(relativa,plan_salud_ano$ano , plan_salud_ano
 head(plan_salud_ano)
 
 ```
-
 ```{r}
 #Ahora ploteamos 
 #un pequeño ajuste al año
@@ -395,7 +401,6 @@ ggplot(data = plan_salud_ano , aes(x = ano , y = porcentaje , color = plan_de_sa
   ggsave("plan_salud_ano.png" , path = "../img/",width=10)
   
 ```
-
 ```{r}
 comuna1 <- 'Quilicura'
 comuna2 <- 'Puente Alto'
@@ -418,7 +423,6 @@ todosplanes_comuna <- todosplanes %>%
 isapre_comuna$relativo <- isapre_comuna$n/todosplanes_comuna$n * 100
 
 ```
-
 ```{r}
 #Ahora ploteamos 
 #un pequeño ajuste al año
@@ -431,7 +435,6 @@ ggplot(data = isapre_comuna , aes(x = year , y = relativo , color = comuna_name)
   ggsave("plan_salud_ano_comunas.png" , path = "../img/",width=10)
   
 ```
-
 ```{r}
 region1 <- 'Valparaíso'
 region2 <- 'Región Metropolitana Santiago'
@@ -452,7 +455,6 @@ todosplanes_region <- todosplanes %>%
 isapre_region$relativo <- isapre_region$n/todosplanes_region$n * 100
 
 ```
-
 ```{r}
 #Ahora ploteamos 
 #un pequeño ajuste al año
@@ -466,12 +468,124 @@ ggplot(data = isapre_region , aes(x = year , y = relativo , color = region_name)
   
 ```
 
+### Prepocesamiento Datos Vivienda
+```{r}
+library(readr)
+library(tidyverse)
+household_for_db <- read_csv("~/GitHub/fondaMinera/dataset/household_for_db.csv")
+zone_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/zone_id.csv")
+water_source_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/water_source_id.csv")
+land_using_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/land_using_id.csv")
+comuna_ids <- read_csv("~/GitHub/fondaMinera/dataset/2017_06_27_comunas_datachile_fixed.csv")
+walls_material_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/walls_material_id.csv")
+less_than_20_blocks_health_center_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/less_than_20_blocks_health_center_id.csv")
+less_than_20_blocks_educational_center_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/less_than_20_blocks_educational_center_id.csv")
+less_than_8_blocks_public_transport_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/less_than_8_blocks_public_transport_id.csv")
+paying_credit_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/paying_credit_id.csv")
+household_sq_meters_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/household_sq_meters_id.csv")
+water_distribution_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/water_distribution_id.csv")
+subsidy_or_program_id <- read_csv("~/GitHub/fondaMinera/dataset/ids_household/subsidy_or_program_id.csv")
+```
+```{r}
+household <- household_for_db #se crea copia del dataframe original
+household$comuna_id <- comuna_ids$comuna_name[match(household$comuna_id,comuna_ids$comuna_customs_id)] #se reasignan las id de las comunas
+household$comuna_datachile_id <- comuna_ids$region_name[match(household$comuna_id, comuna_ids$comuna_name)]
+household$zone_id <- zone_id$value[match(household$zone_id, zone_id$id)] #se reasignan las ids de laz zonas con rural o urbano
+household <- household[complete.cases(household$comuna_id), ] #se eliminan las entradas sin comuna
+colnames(household)[colSums(is.na(household)) > 0] #se buscan los nombres de las columnas con NA
+household <- household %>%
+  rename(#se cambian los nombres de las columnas
+    comuna_name = comuna_id,
+    region_name = comuna_datachile_id,
+    zone_type = zone_id
+    ) %>%
+  relocate(region_name) #se mueve region_name al principio
+```
+```{r}
+#se cambian los NA con una id que representará 'Sin Dato'
+household$family_member_owner[is.na(household$family_member_owner)] <- 3
+household$family_member_owner_2[is.na(household$family_member_owner_2)] <- 9
+household$subsidy_or_program[is.na(household$subsidy_or_program)] <- 5
+household$credit[is.na(household$credit)] <- 7
+household$paying_credit[is.na(household$paying_credit)] <- 5
+household$reason_to_share[is.na(household$reason_to_share)] <- 9
+```
+```{r}
+dim(household) #dimensiones del dataset a trabajar
+sum(is.na(household)) #No hay valores NA 
+household[,names(household)] <- lapply(household[,names(household)],factor) #se convierten a factor todas las col.
+summary(household) #se obtiene un sumario
+```
+```{r}
+unique(household$comuna_name) #nombres de las comunas con datos
+unique(household$region_name) #nombres de las regiones con datos
+colnames(household[-1:-3]) #nombre de los datos de las columnas
+```
+```{r}
+ggplot(household[household$comuna_name %in% unique(household$comuna_name)[110:113],], aes(x = walls_material)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(comuna_name ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('tipos', labels=walls_material_id$value) +
+  ggtitle("Materiales de las paredes
+          por comuna")
+```
+```{r}
+ggplot(household[household$zone_type %in% unique(household$zone_type),], aes(x = walls_material)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(zone_type ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('tipos', labels=walls_material_id$value) +
+  ggtitle("Materiales de las paredes
+          por tipo de zona")
+```
+```{r}
+ggplot(household[household$region_name %in% unique(household$region_name)[11:13],], aes(x = walls_material)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(region_name ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('tipos', labels=walls_material_id$value) +
+  ggtitle("Materiales de las paredes
+          por región")
+```
+```{r}
+ggplot(household[household$zone_type %in% unique(household$zone_type),], aes(x = less_than_20_blocks_health_center)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(zone_type ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('respuesta', labels=less_than_20_blocks_health_center_id$value) +
+  ggtitle("Existencia de centro médico en menos de 20 cuadras")
+```
+```{r}
+ggplot(household[household$region_name %in% unique(household$region_name)[12:15],], aes(x = subsidy_or_program)) +
+  geom_bar(fill = "white", colour = "black")+
+  facet_grid(region_name ~ .) +
+  coord_flip() +
+  ylab('frecuencia') +
+  scale_x_discrete('tipo', labels=subsidy_or_program_id$value) +
+  ggtitle("Tipo de subsidio o pograma
+          por región")
+```
+```{r}
+#comunas de santiago
+comunas_stgo <- unique(household[household$region_name=='Región Metropolitana Santiago',]$comuna_name)
+```
+```{r}
+#tabla que relaciona 2 atributos (en este caso paredes)
+table(household$floor_material,household$walls_material, dnn=c('material del piso','material de las paredes'))
+```
+
 ### Prepocesamiento Datos Bancarios
 ```{r}
 library(readr)
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
+
 
 banking_products <- read_csv("~/GitHub/fondaMinera/dataset/banking_products.csv")
 banking_products_id <- read_csv("~/GitHub/fondaMinera/dataset/banking_products_id.csv")
@@ -481,7 +595,6 @@ dim(banking_products) #La dimensión es de 527089 x 9
 sum(is.na(banking_products)) #No hay valores NA 
 summary(banking_products)
 ```
-
 ```{r}
 #Unificamos las id's en el dataset general
 temp <- merge(x = banking_products , y = comunas , by= "comuna_datachile_id")
@@ -490,14 +603,12 @@ sistema_bancario <- temp[,-c(1,10,12,13)]
 #Eliminamos las variables del sistema que no utilizaremos
 remove(temp, banking_products, banking_products_id, comunas)
 ```
-
 ```{r}
 #Algunos datos
 dim(sistema_bancario) #La dimensión es de 527089 x 10
 sum(is.na(sistema_bancario)) #No hay valores nan 
 summary(sistema_bancario)
 ```
-
 ```{r}
 #No existen valores nan dentro del dataframe, pero por inferencia es posible identificar que ciertos valores etiquetados son nan con una etiqueta numérica, es por esto que lo cambiamos para poder eliminarlos.
 
@@ -512,7 +623,6 @@ sistema_bancario$checks_id[sistema_bancario$checks_id == 0] <- NA
 sistema_bancario <- na.omit(sistema_bancario) 
 dim(sistema_bancario) #La dimensión sin la valores nan es de 384072 x 10
 ```
-
 ```{r}
 #Cambiamos el tipo de dato de ciertas columnas
 sistema_bancario$year = as.factor(sistema_bancario$year)
@@ -521,15 +631,11 @@ sistema_bancario$comuna_name = as.factor(sistema_bancario$comuna_name)
 
 head(sistema_bancario)
 ```
-
 ```{r}
 #Cantidad de datos que ofrecen los diferentes años
 total2011 <- sum(sistema_bancario$year == 2011) #
 total2013 <- sum(sistema_bancario$year == 2013) #
 total2015 <- sum(sistema_bancario$year == 2015) #
+```
 
-# Contribuciones
 
-# Referencias
-
-Ministerio de Desarrollo Social (MDS), Encuesta de caracterización Socioeconómica Nacional (CASEN) 1990-2015, recuperado de [datachile.io](https://es.datachile.io/about/data).

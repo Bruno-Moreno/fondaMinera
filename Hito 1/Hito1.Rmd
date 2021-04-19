@@ -483,7 +483,7 @@ ggplot(data = isapre_region , aes(x = year , y = relativo , color = region_name)
   
 ```
 
-### Prepocesamiento Datos Vivienda
+### Datoset Vivienda
 ```{r}
 library(readr)
 library(tidyverse)
@@ -594,7 +594,7 @@ comunas_stgo <- unique(household[household$region_name=='Región Metropolitana S
 table(household$floor_material,household$walls_material, dnn=c('material del piso','material de las paredes'))
 ```
 
-### Prepocesamiento Datos Bancarios
+### Datoset Bancarios
 ```{r}
 library(readr)
 library(dplyr)

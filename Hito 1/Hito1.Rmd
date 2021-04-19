@@ -134,6 +134,7 @@ Posteriormente se procedió a eliminar las filas de las comunas que no poseen un
 De estas 43 columnas las más importantes y que guardan relación con la motivación de este proyecto son; "household_type" (tipo de vivienda); "walls_material", "floor_material", "ceiling_material" (materiales de la vivienda); "household_sq_meters" (metros cuadrados); "household_using" (origen de la vivienda usada); "subsidy_or_program" (programa de subsidio); "credit" (crédito hipotecario usado); "paying_credit" (estado del pago del crédito); "water_distribution" (distribución del agua); "waste_disposal" (tipo de baños); "rooms" (habitaciones); "bathrooms" (baños); "families_in_household" (familias en la vivienda); "less_than_8_blocks_public_transport" (transporte publico a menos de 8 cuadras); "less_than_20_blocks_educational_center" (centro educacional a menos de 20 cuadras); "less_than_20_blocks_health_center" (centro médico a menos de 20 cuadras); "less_than_20_blocks_pharmacy" (farmacia a menos de 20 cuadras).
 
 Por último, en la siguiente tabla se muestran las cantidad de encuestas por Región, Comuna y Zona:
+
 | Región                               | Comuna            | Zona           |
 |--------------------------------------|-------------------|----------------|
 | Región Metropolitana Santiago: 48663 | Copiapó: 8959     | rural: 36903   |
@@ -143,6 +144,7 @@ Por último, en la siguiente tabla se muestran las cantidad de encuestas por Reg
 | Valparaíso: 16111                    | La Serena: 4112   |                |
 | Los Lagos: 15263                     | El Bosque: 3670   |                |
 | (Other): 65802                       | (Other): 175630   |                |
+
 
 **Exploración visual: ** Como la mayoría de los atributos de este dataset son de tipo cualitativo (categóricos), solo se pueden extraer estadísticas en base a las frecuencias de las categorías, a continuación se muestran algunas visualizaciones de gráficos de barras a nivel comunal, regional y por tipo de zona para algunos de los atributos más importantes en base a la motivación del proyecto:
 
@@ -201,10 +203,15 @@ Con esto es posible ver la curva de crecimiento que tiene la posesión de produc
 ![Uso de diferentes productos a lo largo de los años](../img/bancarios_years.png)
 
 Dentro de este gráfico es posible realizar varias visualizaciones, y para esto podemos ordenar las caracterizaciones:
+
 -Tarjeta Débito: Es posible ver que resulta ser el producto más utilizado y con mayor tasa de crecimiento con respecto a su uso. Para el 2015, ya casi el 56% de la población analizada cuenta con tarjeta débito, las cuales sirven generalmente para realizar compras y pagos al contado sin la necesidad de portar efectivo.
+
 -Tarjeta Crédito: Este producto cuenta con un desarrollo mucho menor al que muestra la tarjeta débito, puesto que no llega a alcanzar nisiquiera el 20% de uso en la población chilena, pero aún así cuenta con un aumento en sus tasas de uso no menor a lo largo de los años.
+
 -Tarjeta Retail: Esta tarjeta aporta con un gran porcentaje de uso en chile según los datos, entendiendo que las personas que adquieren tarjetas de crédito tienden a preferir las del sector Retail más que la de entidades Bancarias. Cabe destacar además que la tarjeta Retail cuenta con un comportamiento totalmente diferente al del resto de los productos en cuanto a su desarrollo a lo largo de los años, el cual podría valer la pena de estudiar, dado su particularidad.
+
 -Chequera: La chequera cuenta con un porcentaje de uso bastante bajo en la población lo cual puede estar de alguna manera relacionado a la preferencia que tienen las personas a la tarjeta de débito como remplazo al pago en contado del efectivo y los cheques. Dado el desarrollo y crecimiento de las tarjetas de débito, se podría esperar que las chequeras comiencen a decaer sus porcentajes de uso en algún momento.
+
 -Línea de Crédito: Junto con las chequeras, la línea de crédito se caracteriza por ser un producto de muy bajo uso en la población, lo cual puede estar ligado a algún factor de limitación o de preferencias de los chilenos.
 
 
@@ -212,9 +219,13 @@ Dentro de este gráfico es posible realizar varias visualizaciones, y para esto 
 #![Uso de diferentes productos según diferentes comunas](../img/bancarios_comunas.png)
 
 Por último, esta caracterización visual permite inferir diferentes características: 
+
 -En primer lugar es claro que la utilización de productos bancarios en general, vista en la primera imagen, se puede relacionar directamente con las comunas de mayores ingresos o las regiones con mayor centralización 
+
 -Otra característica importante a destacar es la gran diferencia que existe entre la comuna de las condes y el resto con respecto al uso de Tarjetas de Crédito, Líneas de Crédito y Chequeras, dando a entender que el uso de ellas se podría encontrar limitado por ciertas características económicas imporantes.
+
 -En las tarjetas de crédito retail y tarjetas de débito es posible ver unos porcentajes no tan cesgados de uso como el resto de los productos, pudiendo explicar la globalización que está alcanzando el uso y desarrollo de estos dos productos a nivel regional (lo cual también se podría extender a nivel nacional).
+
 -A nivel regional, es importante destacar la paridad que existe entre las diferentes regiones de la capital en el uso de las tarjetas de crédito retail.
 
 # Preguntas y Problemas

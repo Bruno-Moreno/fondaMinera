@@ -208,12 +208,14 @@ Dentro de este gráfico es posible realizar varias visualizaciones, y para esto 
 -Línea de Crédito: Junto con las chequeras, la línea de crédito se caracteriza por ser un producto de muy bajo uso en la población, lo cual puede estar ligado a algún factor de limitación o de preferencias de los chilenos.
 
 
-![Uso de diferentes productos según diferentes comunas](../img/bancarios_comunas.png)
+#![Uso de diferentes productos según diferentes comunas](../img/bancarios_region.png)
+#![Uso de diferentes productos según diferentes comunas](../img/bancarios_comunas.png)
 
 Por último, esta caracterización visual permite inferir diferentes características: 
--En primer lugar es claro que la utilización de productos bancarios en general, vista en la primera imagen, se puede relacionar directamente con las comunas de mayores ingresos.
+-En primer lugar es claro que la utilización de productos bancarios en general, vista en la primera imagen, se puede relacionar directamente con las comunas de mayores ingresos o las regiones con mayor centralización 
 -Otra característica importante a destacar es la gran diferencia que existe entre la comuna de las condes y el resto con respecto al uso de Tarjetas de Crédito, Líneas de Crédito y Chequeras, dando a entender que el uso de ellas se podría encontrar limitado por ciertas características económicas imporantes.
 -En las tarjetas de crédito retail y tarjetas de débito es posible ver unos porcentajes no tan cesgados de uso como el resto de los productos, pudiendo explicar la globalización que está alcanzando el uso y desarrollo de estos dos productos a nivel regional (lo cual también se podría extender a nivel nacional).
+-A nivel regional, es importante destacar la paridad que existe entre las diferentes regiones de la capital en el uso de las tarjetas de crédito retail.
 
 # Preguntas y Problemas
 

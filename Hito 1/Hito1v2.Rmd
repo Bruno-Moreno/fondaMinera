@@ -1,0 +1,258 @@
+---
+title: "Hito 1"
+output: html_notebook
+---
+
+**Integrantes: **
+
+* Nicolás Gatica
+
+* Cristóbal Igor
+
+* Nelson Moreno
+
+* Emilio Roa
+
+* Thomas Waldura 
+
+Para ver el repositorio del proyecto, la base de datos y análisis correspondiente, visitar [Github](https://github.com/Bruno-Moreno/fondaMinera).
+ 
+# Introducción
+
+![](../img/casen.png)
+
+La Encuesta de Caracterización Socioeconómica Nacional CASEN, es realizada por el Ministerio de Desarrollo Social con el objetivo de disponer de información que permita:
+
+1. Conocer periódicamente la situación de los hogares y de la población, especialmente de aquella en situación de pobreza y de aquellos grupos definidos como prioritarios por la política social, con relación a aspectos demográficos, de educación, salud, vivienda, trabajo e ingresos. En particular, estimar la magnitud de la pobreza y la distribución del ingreso; identificar carencias y demandas de la población en las áreas señaladas; y evaluar las distintas brechas que separan a los diferentes segmentos sociales y ámbitos territoriales.
+
+2. Evaluar el impacto de la política social: estimar la cobertura, la focalización y la distribución del gasto fiscal de los principales programas sociales de alcance nacional entre los hogares, según su nivel de ingreso, para evaluar el impacto de este gasto en el ingreso de los hogares y en la distribución del mismo.
+
+Su objeto de estudio son los hogares que habitan las viviendas particulares que se ubican en el territorio nacional, exceptuando algunas zonas muy alejadas o de difícil acceso, así como las personas que forman parte de esos hogares.
+
+Además del contexto nacional, la Encuesta Casen considera como dominios de estudio las regiones, y sus ámbitos urbano y rural.
+
+Para este proyecto se trabajará con la base de datos dispuesta por CASEN y recuperada de [datachile.io](https://es.datachile.io/about/data). El objetivo de este proyecto será estudiar esta base de datos y extraer información útil acerca del contexto nacional y su evolución a lo largo de los años en los ámbitos de ingresos, vivienda, salud y datos bancarios.
+La motivación de haber escogido esta base de datos viene dada por el problema Nacional que ha acontecido a Chile desde el estallido social en donde las quejas y problemas acumulados durante años por la población mas vulnerable han salido a flote. Es por esto que con toda la información que entrega la base de datos de CASEN y utilizando herramientas de minería de datos se intentará caracterizar grupos socioeconómicos en base a las dimensiones antes mencionadas y evidenciar la deficiente distribución de riquezas en el país y cómo se pueden ver manifestadas todas las demandas sociales en estos datos.
+
+
+
+# Exploración de Datos
+
+Para el análisis de datos primero se estudiará cada una de las dimensiones por separado, tratando de visualizar ciertas características o tendencias presentes en los datos, para luego, en hitos posteriores, unificar la exploración general del dataset, buscando hallar una interpretación más clara.
+
+
+## Ingresos
+
+En el ámbito de ingresos se tienen 3 datasets con información acerca del ingreso medio de la población según las comunas, las regiones y a nivel país. Para comenzar a familiarizarnos con estos datos realizaremos primero un preprocesamiento de los datos, para luego realizar una exploración visualizando las dimensiones, algunos estadísticos de utilidad y posibles relaciones o patrones que puedan ocultar los datos.
+
+**Pre Procesamiento: ** Para realizar el preprocesamiento primero se observaron los datos de los 3 dataframes con el objetivo de buscar datos inconsistentes o inexistentes dentro de los dataframes. Afortunadamente no se encontró ningún dato faltante. Posteriormente, fue necesario agregar una base de datos extra con las identificaciones de regiones y comunas, todas las bases fueron unificadas mediante el comando merge y según las llaves necesarias.
+
+**Dimensión y Estadísticos: ** Las dimensiones de los 3 dataframas con los que se trabajará para estudiar los ingresos corresponden a:
+
+* Dataframe por comunas: 2151 filas y 12 columnas
+* Dataframe por regiones: 146 filas y 12 columnas
+* Dataframe por país: 11 filas y 12 columnas
+
+Dentro de las 12 características o features que posee cada dataframe se considerarán principalmente:
+
+1. Año en que se recopila la información (year)
+2. Nombre de la comuna o región según el dataframe (comuna_name, geography_id)
+3. Ingreso medio ponderado (weighted_mean_income)
+4. Índice de gini (weighted_gini_income)
+
+Adicionalmente se calcularon algunas valores estadísticos para el ingreso medio ponderado y para el índice de gini.
+
+| Weighted_mean_income   | weighted_gini_income |
+| ---------------------- | -------------------  | 
+| min: 18092             | min: 0.2370          |    
+| 1st Qu.: 71131         | 1st qurt: 0.4080     |  
+| median: 109220         | median: 0.4510       | 
+| mean: 129951           | mean: 0.4555         | 
+| 3th Qu.: 161105        | 3th qurt: 0.4950     | 
+| max: 1343017           | max: 0.8130          |
+
+El índice de Gini es una medida económica que sirve para calcular la desigualdad de ingresos que existe entre los ciudadanos de un territorio, aplicado en este caso a Chile. El valor de este índice se encuentra entre 0 y 1, sindo cero la máxima igualdad, es decir todo los ciudadanos cuentan con los mismo ingresos, y 1 la desigualdad máxima, en donde todos los ingresos se centran en un solo ciudadano. Para el cálculo de este índice se utiliza la siguiente fórmula:
+
+$G= |1 - \sum_{k=1}^{n-1}{(X_{k+1}-X_{k})(Y_{k+1}+Y_k)}|$
+
+**Exploración Visual :** Para poder visualizar los datos de manera más clara se procedió a realizar disferentes gráficas, las cuales se muestran a continuación:
+
+![Boxplot Ingresos a lo largo de los años](../img/boxplot_ingresos_años.png)
+
+![Boxplot Ingresos según algunas comunas](../img/boxplot_ingresos_comunas.png)
+
+![Boxplot Ingresos según la región](../img/boxplot_ingresos_regiones.png)
+
+![Gráfico de ingresos a lo largo de los años](../img/ingresos_pais.png)
+
+
+
+## Salud
+
+**Pre Procesamiento: ** Los datos recopilados se encontraban en 4 bases de las cuales 3 correspondían a los identificaciones de la primera, fue necesario también agregar una base de datos extra con las identificaciones de regiones y comunas, todas las bases fueron unificadas mediante el comando merge y según las llaves necesarias. 
+
+No se encontraron datos inexistentes o inconsistentes en esta base de datos.
+
+
+**Dimensión y estadísticos : ** La base de datos del plan de salud de la encuesta CASEN consiste en 1746044 filas y 11 columnas, de las cuales consideraremos principalmente:
+
+1. Año en que se recopila la información (year)
+2. Sistema de salud del encuestado (health_system)
+3. Región del encuestado (region_name)
+4. Comuna del encuestado (comuna_name)
+
+  
+| Año                    | Plan de Salud    | Región                | Comuna              |
+| ---------------------- | ---------------  | --------------------- | ------------------- |
+| 2000: 248525           | Fonasa A: 639316 | Metropolitana: 330806 | Arica: 27222        |
+| 2003: 254456           | Fonasa B: 445391 | Bío Bío: 259047       | Antofagasta: 25108  | 
+| 2006: 268659           | Fonasa C: 183766 | Valparaíso: 171187    | Iquique: 24030      |
+| 2009: 246924           | Isapre: 163925   | Araucanía: 151506     | Copiapó: 22823      |
+| 2011: 294791           | Fonasa D: 128417 | Maule: 145793         | Valdivia: 20106     |
+| 2013: 218491           | Ninguno: 81272   | O'Higgins: 129199     | Punta Arenas: 17355 |
+| 2015: 214198           | (Other): 103957  | (Other): 558506       | (Other): 1609400    |
+
+El resto de características no eran relevantes para nuestro proyecto.
+
+**Análisis temporal: ** Consideraremos la evolución de la cantidad de personas que poseen determinados planes de salud a lo largo de los años y a través de las distintas regiones y comunas, las gráficas se presentan a continuación:
+
+![Plan de salud en Chile](../img/plan_salud_ano.png)
+Podemos ver que el plan Fonasa A ha estado predominando a lo largo de los años hasta el año 2009 donde comenzó a sufrir una baja importante, el plan FONASA B se ha mantenido constante y por sobre el resto de los planes que no han sufrido muchos cambios. Cabe destacar que el plan ISAPRE también comenzó a subir de manera sustancial a partir del año 2009. 
+
+![Plan de salud por región en Chile](../img/plan_salud_ano_region.png)
+Se consideraron también análisis con respecto al plan ISAPRE pues corresponde al más caro de los planes y podría ser un buen indicador del nivel de ingresos que tiene una determinada comuna/región. Como es de esperar, en la región Metropolitana gran parte de la población posee este plan mientras que en otras regiones la cantidad disminuye, esto podría ser un indicador de la concentración de riquezas a lo largo de Chile.
+
+![Plan de salud por comuna en Chile](../img/plan_salud_ano_comunas.png)
+Finalmente, podemos considerar un análisis más fino sobre las comunas, consideramos las comunas de los integrantes del grupo más la región de Las Condes pues se presume mostrarán diferencias considerables. Notar que en Las Condes la mayor parte de la población tiene ISAPRE mientras que en comunas de ingresos menores, este porcentaje disminuye, peor es el caso de comunas en regiones fuera de la Metropolitana. 
+
+Un dato prometedor con respecto a este análisis es el cambio que ocurrió en el año 2009 y esperamos poder relacionar la situación país con este fenómeno. También fue interesante notar que mediante el plan de salud, se pueden ver diferencias considerables al ingreso promedio. 
+
+## Vivienda
+**Pre Procesamiento: ** En cuanto a los datos de vivienda lo primero que se realizó fue cambiar las ids de las comunas por sus nombres los cuales se encontraban en otra base de datos, sin embargo, solo habían 90 nombres asociados a 90 ids de un total de 346 comunas existentes en Chile. Lo mismo se realizo con la columna de 'zone_id' en donde se reemplazo la id según fuera una comuna urbana o rural.
+
+Posteriormente se procedió a eliminar las filas de las comunas que no poseen un nombre asociado a sus ids y se busco el nombre de las columnas que poseen algún NA en alguna entrada, para las cuales se reviso que significaban sus ids y se reemplazaron los NA con la id correspondiente a 'Sin Dato'. 
+
+**Dimensión y estadísticos: ** Post pre-procesamiento el dataset resulto en 207695 filas y 46 columnas. Cada fila representa una vivienda encuestada y cada columna una pregunta de la encuesta (a excepción de las 3 primeras que representan la región, comuna y el tipo de zona en que se encuentra la vivienda).
+
+De estas 43 columnas las más importantes y que guardan relación con la motivación de este proyecto son; "household_type" (tipo de vivienda); "walls_material", "floor_material", "ceiling_material" (materiales de la vivienda); "household_sq_meters" (metros cuadrados); "household_using" (origen de la vivienda usada); "subsidy_or_program" (programa de subsidio); "credit" (crédito hipotecario usado); "paying_credit" (estado del pago del crédito); "water_distribution" (distribución del agua); "waste_disposal" (tipo de baños); "rooms" (habitaciones); "bathrooms" (baños); "families_in_household" (familias en la vivienda); "less_than_8_blocks_public_transport" (transporte publico a menos de 8 cuadras); "less_than_20_blocks_educational_center" (centro educacional a menos de 20 cuadras); "less_than_20_blocks_health_center" (centro médico a menos de 20 cuadras); "less_than_20_blocks_pharmacy" (farmacia a menos de 20 cuadras).
+
+Por último, en la siguiente tabla se muestran las cantidad de encuestas por Región, Comuna y Zona:
+
+| Región                               | Comuna            | Zona           |
+|--------------------------------------|-------------------|----------------|
+| Región Metropolitana Santiago: 48663 | Copiapó: 8959     | rural: 36903   |
+| Bío Bío: 26880                       | Puente Alto: 5407 | urbano: 170792 |
+| O'Higgins: 18035                     | Conchalí: 4961    |                |
+| Araucanía: 16941                     | Los Ángeles: 4956 |                |
+| Valparaíso: 16111                    | La Serena: 4112   |                |
+| Los Lagos: 15263                     | El Bosque: 3670   |                |
+| (Other): 65802                       | (Other): 175630   |                |
+
+
+**Exploración visual: ** Como la mayoría de los atributos de este dataset son de tipo cualitativo (categóricos), solo se pueden extraer estadísticas en base a las frecuencias de las categorías, a continuación se muestran algunas visualizaciones de gráficos de barras a nivel comunal, regional y por tipo de zona para algunos de los atributos más importantes en base a la motivación del proyecto:
+
+![Material de las paredes por Comuna](../img/walls_material_comunas.png)
+En la visualización anterior resulta interesante notar que en la comuna de Las Condes predomina el hormigón armado en las construcciones y casi no hay viviendas con tabique armado, mientras que en las otras comunas predomina la abañilería.
+
+![Existencia de centros médicos en menos de 20 cuadras por zona](../img/centros_medicos_zona.png)
+En esta visualización se puede notar los problemas que sufren las viviendas rurales en el ámbito de salud, en dodne la amyoria de ellas no tiene centros médicos en menos de 20 cuadras y comunmente deben desplazarse grandes distancias para llegar a alguno.
+
+![Tipo de subsidio o programa por región](../img/subsidy_or_program_region.png)
+En esta última visualización se puede ver que en la Región Metropolitana a diferencia de otras regiones existe un gran uso del subsidio habitacional con y sin crédito, mientras que en las regiones suele predominar tener viviendas en un sitio con recursos propios.
+
+Además de estos gráficos de barras para distintos atributos, se pueden obtener tablas de contingencia entre dos o más atributos que permiten analizar la relación entre ellas. En la siguiente tabla se muestra la tabla de contingencia entre los atributos del tipo de material de las paredes y el tipo de material del suelo de las viviendas:
+
+|                   | material de las paredes |       |       |      |      |    |
+|-------------------|-------------------------|-------|-------|------|------|----|
+| material del piso | 1                       | 2     | 3     | 4    | 5    | 6  |
+| 1                 | 9610                    | 16263 | 40186 | 2418 | 2036 | 19 |
+| 2                 | 12425                   | 73880 | 25429 | 1013 | 1208 | 0  |
+| 3                 | 1306                    | 1542  | 2093  | 89   | 40   | 0  |
+| 4                 | 489                     | 4875  | 2440  | 405  | 467  | 24 |
+| 5                 | 361                     | 3788  | 3508  | 784  | 669  | 36 |
+| 6                 | 0                       | 5     | 59    | 64   | 106  | 58 |
+
+En donde las categorias de los materiales de las paredes son; 1. "hormigón armado"; 2. "albañilería (bloque cemento, piedra o ladrillo)"; 3. "tabique forrado por ambas caras (madera, acero, lata, u otro)"; 4. "tabique sin forro interior (madera u otro)"; 5. "adobe, barro, quincha, pirca u otro artesanal tradicional"; 6. "materiales precarios o de desecho (cartón, latas, sacos, plásticos, etc.)". Mientras que las categorias del material del suelo son; 1. "parquet, madera, piso flotante o similar"; 2. "cerámico, porcelanato, flexit o similar"; 3. alfombra o cubrepiso; 4. baldosa de cemento; 5. radier; 6. tierra.
+
+Como se puede ver, existe completa correlación entre los materiales premium utilizados, teniendo que las viviendas con hormigón armado suelen tener piso flotante o cerámico. Mientras que por otra parte las viviendas con piso tipo radier suelen ser de albañilería y tabique.
+
+## Datos Bancarios
+
+El análisis de bancarización forma parte de la encuesta de caracterización económica y social, la cual contiene un set de temas financieros, lo cual permite analizar en términos generales la evolución de la bancarización a nivel regional y comunal en Chile, con la posibilidad de contrastar los datos con respecto a los años 2011, 2013 y 2015. Los datos muestran una evolución global de la bancarización chilena de acuerdo a las siguientes características:
+
+Tarjeta de Débito: Si la persona encuestada posee o no Tarjeta de Débito (debit_card_id)
+Tarjeta de Crédito: Si la persona encuestada posee o no Tarjeta de de alguna entidad Bancaria (credit_card_bank_id)
+Tarjeta de Retail: Si la persona encuestada posee o no Tarjeta de alguna entidad de tipo Retail (credit_card_store_id)
+Chequera: Si la persona encuestada posee o no Chequera (checks_id)
+Línea de Crédito: Si la persona encuestada posee o no Línea de Crédito (credit_line_id)
+
+| Año           | Región                      | Comuna            | Datos                      |
+|---------------|-----------------------------|-------------------|----------------------------|
+| 2011: 105821  | Región Metropolitana: 69982 | Quilicura: 2329   | Credit_card_bank: 54886    |
+| 2013: 119802  | Región de Valparaíso: 35602 | Puente Alto: 7034 | Debit_card: 164680         |
+| 2015: 158449  | Región del Biobío: 44270    | Las Condes: 4822  | Credit_card_retail: 120877 |
+|               | Región del Maule: 24227     | Laja: 935         | Checks: 32991              |
+|               |                             |                   | Credit_card_line: 32221    |
+
+En cuanto a la exploración, se realizó un enfoque de 3 aspectos principales buscando caracterizar la cantidad de personas que poseen algún tipo de productos financiero con a lo largo de los años, diferenciar la cantidad de personas que utilizan los diferentes productos y por último cómo se caracterizan comunas de diferente status social en el uso de los diferentes productos bancarios. Para esto se realizó una exploración dentro del data modificando sus características de tal manera que se pudiesen filtar y contar los datos necesarios para la exploración. Así, se obtuvieron los siguientes resultados visuales: 
+
+
+![Productos Financieros en General](../img/bancarios_productos.png)
+
+Con esto es posible ver la curva de crecimiento que tiene la posesión de productos financieros a lo largo de los años. Además se tiene que la bancarización en Chile ya mantiene niveles medio-altos al contar con cerca del 67% de la población con algún tipo de producto bancario para su uso personal.
+
+
+
+![Uso de diferentes productos a lo largo de los años](../img/bancarios_years.png)
+
+Dentro de este gráfico es posible realizar varias visualizaciones, y para esto podemos ordenar las caracterizaciones:
+
+-Tarjeta Débito: Es posible ver que resulta ser el producto más utilizado y con mayor tasa de crecimiento con respecto a su uso. Para el 2015, ya casi el 56% de la población analizada cuenta con tarjeta débito, las cuales sirven generalmente para realizar compras y pagos al contado sin la necesidad de portar efectivo.
+
+-Tarjeta Crédito: Este producto cuenta con un desarrollo mucho menor al que muestra la tarjeta débito, puesto que no llega a alcanzar nisiquiera el 20% de uso en la población chilena, pero aún así cuenta con un aumento en sus tasas de uso no menor a lo largo de los años.
+
+-Tarjeta Retail: Esta tarjeta aporta con un gran porcentaje de uso en chile según los datos, entendiendo que las personas que adquieren tarjetas de crédito tienden a preferir las del sector Retail más que la de entidades Bancarias. Cabe destacar además que la tarjeta Retail cuenta con un comportamiento totalmente diferente al del resto de los productos en cuanto a su desarrollo a lo largo de los años, el cual podría valer la pena de estudiar, dado su particularidad.
+
+-Chequera: La chequera cuenta con un porcentaje de uso bastante bajo en la población lo cual puede estar de alguna manera relacionado a la preferencia que tienen las personas a la tarjeta de débito como remplazo al pago en contado del efectivo y los cheques. Dado el desarrollo y crecimiento de las tarjetas de débito, se podría esperar que las chequeras comiencen a decaer sus porcentajes de uso en algún momento.
+
+-Línea de Crédito: Junto con las chequeras, la línea de crédito se caracteriza por ser un producto de muy bajo uso en la población, lo cual puede estar ligado a algún factor de limitación o de preferencias de los chilenos.
+
+
+#![Uso de diferentes productos según diferentes comunas](../img/bancarios_region.png)
+#![Uso de diferentes productos según diferentes comunas](../img/bancarios_comunas.png)
+
+Por último, esta caracterización visual permite inferir diferentes características: 
+
+-En primer lugar es claro que la utilización de productos bancarios en general, vista en la primera imagen, se puede relacionar directamente con las comunas de mayores ingresos o las regiones con mayor centralización 
+
+-Otra característica importante a destacar es la gran diferencia que existe entre la comuna de las condes y el resto con respecto al uso de Tarjetas de Crédito, Líneas de Crédito y Chequeras, dando a entender que el uso de ellas se podría encontrar limitado por ciertas características económicas imporantes.
+
+-En las tarjetas de crédito retail y tarjetas de débito es posible ver unos porcentajes no tan cesgados de uso como el resto de los productos, pudiendo explicar la globalización que está alcanzando el uso y desarrollo de estos dos productos a nivel regional (lo cual también se podría extender a nivel nacional).
+
+-A nivel regional, es importante destacar la paridad que existe entre las diferentes regiones de la capital en el uso de las tarjetas de crédito retail.
+
+# Preguntas y Problemas
+
+Dado el feedback del equipo docente tras la presentación del hito 1, como equipo se tomó la decisión de encapsular nuestros objetivos en 3 principales preguntas, las cuales serán contextualizadas y propuestas a continuación:
+
+
+* PREGUNTA 1: **Con la idea de caracterizar grupos socioeconómicos en base a las diferentes dimensiones planteadas y evidenciar la deficiente distribución de riquezas en el país y cómo se pueden ver manifestadas todas las demandas sociales en estos datos.¿Es posible establecer una relación entre la distancia de clusters y la desigualdad económica entre la distintas comunas? **
+
+* PREGUNTA 2: **Bien sabemos que Chile es un país que a través de su largo territorio posee toda la variedad de zonas climáticas. Esto le otorga una amplia variedad de características geográficas a las cuales el país se ha ido adaptando desde el extremo norte al extremo sur del país. En base a esto y los datos que nos brinda DataChile.io en cuanto viviendas, resulta sumamente interesante la siguiente pregunta. ¿Es posible predecir regiones en base a los materiales de la construcción de sus viviendas?, y si lo es, ¿qué materiales caracterizan a cada región?**
+
+* PREGUNTA 3: **Dado que el principal interés de este trabajo es ver reflejada la desigualdad social que tanto ha estado en la palestra en este último tiempo una tercera pregunta es si ¿es posible a través de los clusters formados en los datasets de salud, educación, vivienda y bancarios o a través de los atributos presentes en ellos encontrar reglas de asociación que permitan establecer un rango o situación socioeconómica a la cual se pertenece?, ¿Cuáles serían estas reglas de asociación?**
+
+
+
+# Contribuciones
+
+| Integrantes     | Aporte en el proyecto (Hito 1)                                                                                                                    |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nicolás Gatica  | Análisis de datos bancarios (tablas y gráficas) , confección del reporte general sección bancaria y  búsqueda del dataset, video de presentación. |
+| Cristóbal Igor  | Análisis de datos de vivienda (tablas y gráficas), confección del reporte general sección vivienda y búsqueda del dataset, video de presentación. |
+| Nelson Moreno   | Análisis de datos de salud (tablas y gráficas) , confeción del reporte general sección salud y  búsqueda del dataset, video de presentación       |
+| Emilio Roa      | Análisis de datos de ingreso (tablas y gráficas) , confección del reporte sección ingreso y búsqueda del dataset, video de presentación.          |
+| Thomas Waldura  | Confección de la presentación (diapositivas), confección del reporte sección introducción y  búsqueda del dataset.                                |
+# Referencias
+
+Ministerio de Desarrollo Social (MDS), Encuesta de caracterización Socioeconómica Nacional (CASEN) 1990-2015, recuperado de [datachile.io](https://es.datachile.io/about/data).
